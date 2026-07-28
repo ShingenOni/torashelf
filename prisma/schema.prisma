@@ -1,0 +1,151 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// SQLite has no native enum type — Prisma stores these as TEXT and
+// enforces the enum at the application layer. Values map 1:1 to real
+// enums once we migrate the datasource to Postgres.
+
+model Game {
+  id          String   @id @default(cuid())
+  title       String
+  publisher   String
+  releaseDate DateTime?
+
+  revisions GameRevision[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([title])
+}
+
+// One row per regional print / cart revision of a Game. Region-free status,
+// language support, and trust level are all properties of a specific print,
+// not the title as a whole — that's the core distinction this app tracks.
+model GameRevision {
+  id     String @id @default(cuid())
+  gameId String
+  game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  regionOfCart String // "US" | "EU" | "JP" | "ASIA" | "OTHER"
+  regionFree   String // "REGION_FREE" | "REGION_LOCKED" | "UNKNOWN"
+
+  languages              String // JSON-encoded string[], e.g. ["EN","JA","FR"]
+  languageLockedToRegion Boolean // true = language tied to cart print, false = follows console OS language
+
+  dataSource      String // "SCRAPED" | "COMMUNITY_VERIFIED" | "UNVERIFIED_SUBMISSION"
+  sourceCitation  String?
+  notes           String? // free-text nuance, e.g. "JA only on JP cart, EN print separate"
+
+  votes             SubmissionVote[]
+  collectionEntries CollectionEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([gameId])
+  @@index([regionOfCart])
+  @@index([regionFree])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime? // required by the Auth.js Prisma adapter
+  name          String?
+  image         String? // required by the Auth.js Prisma adapter
+
+  // Used by the personal collection dashboard to flag owned prints that are
+  // region-locked away from home or don't carry a language the user reads.
+  homeRegion         String @default("US") // "US" | "EU" | "JP" | "ASIA" | "OTHER"
+  preferredLanguages String @default("[\"EN\"]") // JSON-encoded string[]
+
+  votes             SubmissionVote[]
+  collectionEntries CollectionEntry[]
+
+  createdAt DateTime @default(now())
+
+  // NextAuth (Auth.js) relations for email magic-link auth
+  accounts Account[]
+  sessions Session[]
+}
+
+// Confirm/dispute vote on a GameRevision's accuracy, with optional evidence
+// (e.g. a screenshot proving actual language content) for disputed entries.
+model SubmissionVote {
+  id             String       @id @default(cuid())
+  gameRevisionId String
+  gameRevision   GameRevision @relation(fields: [gameRevisionId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  vote        String // "CONFIRM" | "DISPUTE"
+  evidenceUrl String? // path to uploaded screenshot/photo, local disk for MVP
+
+  createdAt DateTime @default(now())
+
+  @@unique([gameRevisionId, userId])
+  @@index([gameRevisionId])
+}
+
+// A user's personal library entry for a specific cart revision.
+model CollectionEntry {
+  id             String       @id @default(cuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameRevisionId String
+  gameRevision   GameRevision @relation(fields: [gameRevisionId], references: [id], onDelete: Cascade)
+
+  status String // "OWNED" | "WISHLIST" | "CONSIDERING_IMPORT"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, gameRevisionId])
+  @@index([userId])
+}
+
+// --- NextAuth (Auth.js) required models for the Prisma adapter ---
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

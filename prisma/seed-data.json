@@ -1,0 +1,1105 @@
+[
+  {
+    "title": "The Legend of Zelda: Breath of the Wild",
+    "publisher": "Nintendo",
+    "releaseDate": "2017-03-03",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "The Legend of Zelda: Tears of the Kingdom",
+    "publisher": "Nintendo",
+    "releaseDate": "2023-05-12",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Super Mario Odyssey",
+    "publisher": "Nintendo",
+    "releaseDate": "2017-10-27",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Mario Kart 8 Deluxe",
+    "publisher": "Nintendo",
+    "releaseDate": "2017-04-28",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "PT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "PT",
+          "RU"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Splatoon 3",
+    "publisher": "Nintendo",
+    "releaseDate": "2022-09-09",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Metroid Dread",
+    "publisher": "Nintendo",
+    "releaseDate": "2021-10-08",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Xenoblade Chronicles 3",
+    "publisher": "Nintendo",
+    "releaseDate": "2022-07-29",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Fire Emblem: Three Houses",
+    "publisher": "Nintendo",
+    "releaseDate": "2019-07-26",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Pokémon Scarlet",
+    "publisher": "Nintendo",
+    "releaseDate": "2022-11-18",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Pokémon Violet",
+    "publisher": "Nintendo",
+    "releaseDate": "2022-11-18",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Dragon Quest XI S: Echoes of an Elusive Age – Definitive Edition",
+    "publisher": "Nintendo",
+    "releaseDate": "2019-09-27",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "FR",
+          "ES",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "FR",
+          "ES",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Persona 5 Royal",
+    "publisher": "SEGA",
+    "releaseDate": "2022-10-21",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Octopath Traveler",
+    "publisher": "Square Enix",
+    "releaseDate": "2018-07-13",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Bayonetta 3",
+    "publisher": "Nintendo",
+    "releaseDate": "2022-10-28",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Kirby and the Forgotten Land",
+    "publisher": "Nintendo",
+    "releaseDate": "2022-03-25",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Super Smash Bros. Ultimate",
+    "publisher": "Nintendo",
+    "releaseDate": "2018-12-07",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Monster Hunter Rise",
+    "publisher": "CAPCOM",
+    "releaseDate": "2021-03-26",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "PT",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "PT",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "PT",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "Animal Crossing: New Horizons",
+    "publisher": "Nintendo",
+    "releaseDate": "2020-03-20",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "1-2 Switch",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "IT",
+          "DE",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "IT",
+          "DE",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches. JP English option corroborated by Perfectly Nintendo's tracker."
+      }
+    ]
+  },
+  {
+    "title": "Snipperclips: Cut It Out, Together!",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "IT",
+          "DE",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "IT",
+          "DE",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      }
+    ]
+  },
+  {
+    "title": "ARMS",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "IT",
+          "DE",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "IT",
+          "DE",
+          "NL",
+          "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches. JP English option corroborated by Perfectly Nintendo's tracker."
+      }
+    ]
+  },
+  {
+    "title": "Splatoon 2",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      }
+    ]
+  },
+  {
+    "title": "Mario + Rabbids: Kingdom Battle",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "EN"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches. JP English option corroborated by Perfectly Nintendo's tracker."
+      }
+    ]
+  },
+  {
+    "title": "Pokken Tournament DX",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "JA",
+          "ES",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      }
+    ]
+  },
+  {
+    "title": "Fire Emblem Warriors",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      }
+    ]
+  },
+  {
+    "title": "Xenoblade Chronicles 2",
+    "publisher": "Nintendo",
+    "releaseDate": null,
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "languages": [
+          "JA",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://nintendosoup.com/first-party-nintendo-switch-games-listed-language-support-region/",
+        "notes": "From a 2017-era language tracker — may not reflect later patches."
+      }
+    ]
+  }
+]
