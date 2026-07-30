@@ -1,5 +1,6 @@
 import { BrowseToolbar } from "@/components/BrowseToolbar";
 import { GameCard } from "@/components/GameCard";
+import { Pagination } from "@/components/Pagination";
 import { getBrowseGames, getPublishers } from "@/lib/games";
 import { auth } from "@/auth";
 
@@ -16,14 +17,19 @@ export default async function BrowsePage({
   const params = await searchParams;
   const q = Array.isArray(params.q) ? params.q[0] : params.q;
   const publisher = Array.isArray(params.publisher) ? params.publisher[0] : params.publisher;
+  const pageParam = Array.isArray(params.page) ? params.page[0] : params.page;
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
 
-  const [games, publishers, session] = await Promise.all([
-    getBrowseGames({
-      q,
-      publisher,
-      regions: parseListParam(params.region),
-      langs: parseListParam(params.lang),
-    }),
+  const [{ games, total, pageCount }, publishers, session] = await Promise.all([
+    getBrowseGames(
+      {
+        q,
+        publisher,
+        regions: parseListParam(params.region),
+        langs: parseListParam(params.lang),
+      },
+      page,
+    ),
     getPublishers(),
     auth(),
   ]);
@@ -44,11 +50,14 @@ export default async function BrowsePage({
           No games match your filters.
         </p>
       ) : (
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {games.map((game) => (
-            <GameCard key={game.id} game={game} />
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {games.map((game) => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </div>
+          <Pagination page={page} pageCount={pageCount} total={total} searchParams={params} />
+        </>
       )}
     </main>
   );

@@ -27,6 +27,15 @@ const games: GameSeed[] = JSON.parse(
   readFileSync(path.join(__dirname, "seed-data.json"), "utf8"),
 );
 
+// Belt-and-suspenders against a malformed date slipping through the fetch
+// script (has happened — some titledb entries carry a bare year with no
+// month/day) rather than letting one bad row abort the whole seed run.
+function parseReleaseDate(value: string | null): Date | null {
+  if (!value) return null;
+  const date = new Date(value);
+  return isNaN(date.getTime()) ? null : date;
+}
+
 async function main() {
   console.log("Seeding database...");
 
@@ -40,7 +49,7 @@ async function main() {
       data: {
         title: g.title,
         publisher: g.publisher,
-        releaseDate: g.releaseDate ? new Date(g.releaseDate) : null,
+        releaseDate: parseReleaseDate(g.releaseDate),
         revisions: {
           create: g.revisions.map((r) => ({
             regionOfCart: r.regionOfCart,

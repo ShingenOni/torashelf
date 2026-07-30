@@ -39,6 +39,8 @@ export function BrowseToolbar({
       if (value) params.set(key, value);
       else params.delete(key);
     }
+    // Any filter change invalidates the current page number.
+    params.delete("page");
     router.push(params.toString() ? `${pathname}?${params.toString()}` : pathname);
   }
 
