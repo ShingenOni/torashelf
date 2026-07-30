@@ -52,8 +52,19 @@ model GameRevision {
   sourceCitation  String?
   notes           String? // free-text nuance, e.g. "JA only on JP cart, EN print separate"
 
+  // Who submitted this (null for scraped/seed entries) — needed to rate-limit
+  // and attribute community submissions.
+  submittedByUserId String?
+  submittedByUser   User?   @relation("SubmittedRevisions", fields: [submittedByUserId], references: [id], onDelete: SetNull)
+
+  // Set once a revision accumulates enough open spam/abuse reports (see
+  // REPORT_HIDE_THRESHOLD) — hidden entries are filtered out of browse/detail
+  // queries but not deleted, so a moderator can still review and reverse it.
+  isHidden Boolean @default(false)
+
   votes             SubmissionVote[]
   collectionEntries CollectionEntry[]
+  reports           Report[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -61,6 +72,7 @@ model GameRevision {
   @@index([gameId])
   @@index([regionOfCart])
   @@index([regionFree])
+  @@index([submittedByUserId])
 }
 
 model User {
@@ -82,6 +94,9 @@ model User {
 
   votes             SubmissionVote[]
   collectionEntries CollectionEntry[]
+  submittedRevisions GameRevision[] @relation("SubmittedRevisions")
+  reports            Report[]
+  rateLimitEvents    RateLimitEvent[]
 
   createdAt DateTime @default(now())
 
@@ -123,6 +138,41 @@ model CollectionEntry {
 
   @@unique([userId, gameRevisionId])
   @@index([userId])
+}
+
+// A spam/abuse flag on a revision — separate from SubmissionVote, which is
+// for genuine data disagreement (confirm/dispute), not bad-faith content.
+model Report {
+  id             String       @id @default(cuid())
+  gameRevisionId String
+  gameRevision   GameRevision @relation(fields: [gameRevisionId], references: [id], onDelete: Cascade)
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  reason  String // "SPAM" | "ABUSE" | "OTHER"
+  details String?
+
+  status String @default("OPEN") // "OPEN" | "REVIEWED" | "DISMISSED"
+
+  createdAt DateTime @default(now())
+
+  @@unique([gameRevisionId, userId])
+  @@index([gameRevisionId])
+}
+
+// Generic action log backing rate limiting — one row per rate-limited action
+// taken, queried by count-within-window rather than a rolling counter, so
+// the window slides naturally with no separate reset/cron job needed.
+model RateLimitEvent {
+  id        String   @id @default(cuid())
+  action    String // "SUBMIT_GAME" | "VOTE" | "REPORT"
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([action, userId, createdAt])
+  @@index([action, ipAddress, createdAt])
 }
 
 // --- NextAuth (Auth.js) required models for the Prisma adapter ---

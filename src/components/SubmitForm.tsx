@@ -32,6 +32,16 @@ export function SubmitForm({
 
   return (
     <form action={formAction} className="flex flex-col gap-5">
+      {/* Honeypot — real users never see or fill this in */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="absolute h-0 w-0 overflow-hidden opacity-0"
+        aria-hidden="true"
+      />
+
       <fieldset className="flex gap-4 text-sm">
         <label className="inline-flex items-center gap-1.5">
           <input type="radio" name="mode" value="new" checked={mode === "new"} onChange={() => setMode("new")} />

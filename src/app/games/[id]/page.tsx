@@ -7,6 +7,7 @@ import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
 import { LanguageTags } from "@/components/LanguageTags";
 import { VotePanel } from "@/components/VotePanel";
 import { CollectionControl } from "@/components/CollectionControl";
+import { ReportButton } from "@/components/ReportButton";
 import { getGameWithRevisions } from "@/lib/games";
 import { getCurrentUserId } from "@/lib/auth";
 import { CART_REGION_LABELS, parseLanguages, type CartRegion } from "@/lib/enums";
@@ -136,6 +137,8 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                   disputeEvidence={disputeEvidence}
                   isSignedIn={isSignedIn}
                 />
+
+                <ReportButton gameRevisionId={revision.id} isSignedIn={isSignedIn} />
               </div>
             );
           })}

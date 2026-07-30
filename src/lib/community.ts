@@ -7,8 +7,11 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { enforceRateLimit, getClientIp } from "@/lib/rateLimit";
+import { sanitizeText, tooManyLinks, validateUrl } from "@/lib/sanitize";
 
 const CONFIRM_THRESHOLD = 3;
+const REPORT_HIDE_THRESHOLD = 3;
 
 const ALLOWED_EVIDENCE_TYPES: Record<string, string> = {
   "image/png": ".png",
@@ -18,15 +21,32 @@ const ALLOWED_EVIDENCE_TYPES: Record<string, string> = {
 };
 const MAX_EVIDENCE_BYTES = 5 * 1024 * 1024;
 
+// Honeypot: an off-screen field real users never fill in. Bots that
+// autofill every input tend to fill it, so a non-empty value is a strong
+// signal to silently reject without tipping off that it was a trap.
+function isHoneypotTripped(formData: FormData): boolean {
+  return String(formData.get("website") ?? "").trim().length > 0;
+}
+
 export type SubmitState = { error: string | null };
 
 export async function submitGameRevision(
   _prevState: SubmitState,
   formData: FormData,
 ): Promise<SubmitState> {
+  if (isHoneypotTripped(formData)) {
+    return { error: "Something went wrong. Please try again." };
+  }
+
   const user = await getCurrentUser();
   if (!user) {
     return { error: "Sign in to submit a game or correction." };
+  }
+
+  const ip = await getClientIp();
+  const rateLimit = await enforceRateLimit("SUBMIT_GAME", user.id, ip);
+  if (!rateLimit.ok) {
+    return { error: rateLimit.error };
   }
 
   const mode = formData.get("mode");
@@ -40,8 +60,21 @@ export async function submitGameRevision(
     .map((s) => s.trim().toUpperCase())
     .filter(Boolean);
   const allLanguages = Array.from(new Set([...languages, ...extraLanguages]));
-  const sourceCitation = String(formData.get("sourceCitation") ?? "").trim() || null;
-  const notes = String(formData.get("notes") ?? "").trim() || null;
+
+  const sourceCitationRaw = String(formData.get("sourceCitation") ?? "").trim();
+  let sourceCitation: string | null = null;
+  if (sourceCitationRaw) {
+    sourceCitation = validateUrl(sourceCitationRaw);
+    if (!sourceCitation) {
+      return { error: "Source citation must be a valid http(s) URL." };
+    }
+  }
+
+  const notesRaw = String(formData.get("notes") ?? "");
+  if (tooManyLinks(notesRaw)) {
+    return { error: "Notes can include at most 2 links." };
+  }
+  const notes = sanitizeText(notesRaw);
 
   if (typeof regionOfCart !== "string" || !regionOfCart) {
     return { error: "Choose the cart's print region." };
@@ -62,8 +95,8 @@ export async function submitGameRevision(
     }
     gameId = existingId;
   } else {
-    const title = String(formData.get("title") ?? "").trim();
-    const publisher = String(formData.get("publisher") ?? "").trim();
+    const title = sanitizeText(formData.get("title"), 200);
+    const publisher = sanitizeText(formData.get("publisher"), 200);
     const releaseDateRaw = String(formData.get("releaseDate") ?? "");
     if (!title || !publisher) {
       return { error: "Title and publisher are required." };
@@ -89,6 +122,7 @@ export async function submitGameRevision(
       dataSource: "UNVERIFIED_SUBMISSION",
       sourceCitation,
       notes,
+      submittedByUserId: user.id,
     },
   });
 
@@ -115,6 +149,12 @@ export async function castVote(formData: FormData): Promise<VoteState> {
     return { error: "Sign in to vote." };
   }
 
+  const ip = await getClientIp();
+  const rateLimit = await enforceRateLimit("VOTE", user.id, ip);
+  if (!rateLimit.ok) {
+    return { error: rateLimit.error };
+  }
+
   let evidenceUrl: string | null = null;
   const evidenceFile = formData.get("evidence");
   if (vote === "DISPUTE" && evidenceFile instanceof File && evidenceFile.size > 0) {
@@ -125,6 +165,9 @@ export async function castVote(formData: FormData): Promise<VoteState> {
     }
   }
 
+  // Unique on [gameRevisionId, userId] — a second vote from the same account
+  // always updates this same row rather than creating a duplicate, so one
+  // vote per user per entry holds regardless of how many times they click.
   await prisma.submissionVote.upsert({
     where: { gameRevisionId_userId: { gameRevisionId, userId: user.id } },
     update: { vote, evidenceUrl },
@@ -141,6 +184,61 @@ export async function castVote(formData: FormData): Promise<VoteState> {
   revalidatePath("/");
 
   return { error: null };
+}
+
+export type ReportState = { error: string | null; success?: boolean };
+
+export async function reportRevision(
+  _prevState: ReportState,
+  formData: FormData,
+): Promise<ReportState> {
+  if (isHoneypotTripped(formData)) {
+    return { error: "Something went wrong. Please try again." };
+  }
+
+  const gameRevisionId = formData.get("gameRevisionId");
+  const reason = formData.get("reason");
+
+  if (typeof gameRevisionId !== "string" || !gameRevisionId) {
+    return { error: "Missing revision." };
+  }
+  if (reason !== "SPAM" && reason !== "ABUSE" && reason !== "OTHER") {
+    return { error: "Choose a reason." };
+  }
+
+  const user = await getCurrentUser();
+  if (!user) {
+    return { error: "Sign in to report content." };
+  }
+
+  const ip = await getClientIp();
+  const rateLimit = await enforceRateLimit("REPORT", user.id, ip);
+  if (!rateLimit.ok) {
+    return { error: rateLimit.error };
+  }
+
+  const detailsRaw = String(formData.get("details") ?? "");
+  if (tooManyLinks(detailsRaw)) {
+    return { error: "Details can include at most 2 links." };
+  }
+  const details = sanitizeText(detailsRaw, 300);
+
+  await prisma.report.upsert({
+    where: { gameRevisionId_userId: { gameRevisionId, userId: user.id } },
+    update: { reason, details, status: "OPEN" },
+    create: { gameRevisionId, userId: user.id, reason, details },
+  });
+
+  await maybeHideForReports(gameRevisionId);
+
+  const revision = await prisma.gameRevision.findUniqueOrThrow({
+    where: { id: gameRevisionId },
+    select: { gameId: true },
+  });
+  revalidatePath(`/games/${revision.gameId}`);
+  revalidatePath("/");
+
+  return { error: null, success: true };
 }
 
 async function saveEvidenceFile(file: File): Promise<string> {
@@ -172,6 +270,26 @@ async function maybePromoteToVerified(gameRevisionId: string) {
     await prisma.gameRevision.update({
       where: { id: gameRevisionId },
       data: { dataSource: "COMMUNITY_VERIFIED" },
+    });
+  }
+}
+
+// No moderation dashboard exists yet, so this is the only thing that makes
+// reports actually do something rather than just log data nobody reads.
+// Hiding (not deleting) keeps the entry recoverable once real moderation
+// tooling exists.
+async function maybeHideForReports(gameRevisionId: string) {
+  const revision = await prisma.gameRevision.findUniqueOrThrow({
+    where: { id: gameRevisionId },
+    include: { reports: true },
+  });
+  if (revision.isHidden) return;
+
+  const openReports = revision.reports.filter((r) => r.status === "OPEN").length;
+  if (openReports >= REPORT_HIDE_THRESHOLD) {
+    await prisma.gameRevision.update({
+      where: { id: gameRevisionId },
+      data: { isHidden: true },
     });
   }
 }

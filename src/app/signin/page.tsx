@@ -24,11 +24,25 @@ export default function SignInPage() {
       <form
         action={async (formData) => {
           "use server";
+          // Honeypot — real users never see or fill this in. Bots that
+          // autofill every field tend to, so silently drop the request
+          // rather than sending a verification email/creating a token.
+          if (String(formData.get("website") ?? "").trim().length > 0) {
+            return;
+          }
           const email = String(formData.get("email") ?? "");
           await signIn("email", { email, redirectTo: "/collection" });
         }}
         className="flex flex-col gap-3"
       >
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          className="absolute h-0 w-0 overflow-hidden opacity-0"
+          aria-hidden="true"
+        />
         <input
           type="email"
           name="email"

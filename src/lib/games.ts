@@ -21,7 +21,7 @@ export async function getBrowseGames(filters: BrowseFilters) {
       title: filters.q ? { contains: filters.q } : undefined,
       publisher: filters.publisher || undefined,
     },
-    include: { revisions: { orderBy: { createdAt: "asc" } } },
+    include: { revisions: { where: { isHidden: false }, orderBy: { createdAt: "asc" } } },
     orderBy: { title: "asc" },
   });
 
@@ -53,6 +53,7 @@ export async function getGameWithRevisions(id: string) {
     where: { id },
     include: {
       revisions: {
+        where: { isHidden: false },
         orderBy: { createdAt: "asc" },
         include: { votes: true, collectionEntries: true },
       },
