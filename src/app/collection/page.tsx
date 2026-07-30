@@ -5,6 +5,8 @@ import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/db";
 import { RegionBadge } from "@/components/RegionBadge";
 import { TrustBadge } from "@/components/TrustBadge";
+import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
+import { EarlyAdopterBadge } from "@/components/EarlyAdopterBadge";
 import { ProfileForm } from "@/components/ProfileForm";
 import { assessOwnedRevision } from "@/lib/insights";
 import { CART_REGION_LABELS, parseLanguages, type CartRegion } from "@/lib/enums";
@@ -41,7 +43,10 @@ export default async function CollectionPage() {
 
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold">My collection</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl font-semibold">My collection</h1>
+            {user.isEarlyAdopter && <EarlyAdopterBadge signupNumber={user.signupNumber} />}
+          </div>
           <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
             Signed in as {user.email}
           </p>
@@ -93,6 +98,7 @@ export default async function CollectionPage() {
                       </p>
 
                       <div className="mt-2 flex flex-wrap gap-1.5">
+                        <CartridgeFormatBadge cartridgeFormat={revision.cartridgeFormat} />
                         <RegionBadge
                           regionFree={revision.regionFree}
                           regionOfCart={revision.regionOfCart}

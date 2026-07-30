@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { IconArrowLeft, IconExternalLink, IconPlus } from "@tabler/icons-react";
 import { RegionBadge } from "@/components/RegionBadge";
 import { TrustBadge } from "@/components/TrustBadge";
+import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
 import { LanguageTags } from "@/components/LanguageTags";
 import { VotePanel } from "@/components/VotePanel";
 import { CollectionControl } from "@/components/CollectionControl";
@@ -80,6 +81,7 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                 </div>
 
                 <div className="mt-2 flex flex-wrap gap-1.5">
+                  <CartridgeFormatBadge cartridgeFormat={revision.cartridgeFormat} />
                   <RegionBadge
                     regionFree={revision.regionFree}
                     regionOfCart={revision.regionOfCart}

@@ -7,6 +7,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -23,8 +24,51 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -52,6 +96,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -70,8 +115,51 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -99,6 +187,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -116,8 +205,30 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -127,6 +238,27 @@
           "IT",
           "NL",
           "RU"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
         ],
         "languageLockedToRegion": true,
         "dataSource": "SCRAPED",
@@ -143,6 +275,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -162,8 +295,31 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "PT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -174,6 +330,28 @@
           "NL",
           "PT",
           "RU"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "PT",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
         ],
         "languageLockedToRegion": true,
         "dataSource": "SCRAPED",
@@ -190,6 +368,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -208,8 +387,51 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -237,6 +459,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -255,8 +478,51 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -284,6 +550,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -300,8 +567,47 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -327,6 +633,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -343,8 +650,47 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -370,6 +716,64 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -395,6 +799,64 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -420,6 +882,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "FR",
@@ -437,10 +900,29 @@
       {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "FR",
           "ES",
+          "DE",
+          "IT",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "EN",
+          "ES",
+          "FR",
           "DE",
           "IT",
           "KO",
@@ -461,6 +943,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "ES",
@@ -468,7 +951,19 @@
           "DE",
           "IT"
         ],
-        "languageLockedToRegion": false,
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA"
+        ],
+        "languageLockedToRegion": true,
         "dataSource": "SCRAPED",
         "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
         "notes": null
@@ -476,6 +971,7 @@
       {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "ES",
@@ -483,7 +979,7 @@
           "DE",
           "IT"
         ],
-        "languageLockedToRegion": false,
+        "languageLockedToRegion": true,
         "dataSource": "SCRAPED",
         "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
         "notes": null
@@ -498,6 +994,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -516,6 +1013,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -533,6 +1031,7 @@
       {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -550,6 +1049,7 @@
       {
         "regionOfCart": "ASIA",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -574,6 +1074,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -591,8 +1092,49 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -619,6 +1161,67 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -645,6 +1248,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -663,8 +1267,51 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -692,6 +1339,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -712,6 +1360,7 @@
       {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "PT",
@@ -732,6 +1381,7 @@
       {
         "regionOfCart": "ASIA",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -759,6 +1409,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -777,8 +1428,51 @@
         "notes": null
       },
       {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": "JP English option corroborated by Perfectly Nintendo's tracker."
+      },
+      {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "ASIA",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN",
@@ -806,6 +1500,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -824,6 +1519,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -849,6 +1545,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -867,6 +1564,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -892,6 +1590,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -910,6 +1609,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -935,6 +1635,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "ES",
@@ -948,6 +1649,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA"
         ],
@@ -966,6 +1668,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "ES",
@@ -984,6 +1687,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "EN"
@@ -1003,6 +1707,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -1019,6 +1724,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "JA",
@@ -1042,6 +1748,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "ES",
@@ -1057,6 +1764,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "ZH"
@@ -1076,6 +1784,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "EN",
           "ES",
@@ -1091,6 +1800,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
         "languages": [
           "JA",
           "ZH"

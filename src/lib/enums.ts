@@ -11,6 +11,9 @@ export const DATA_SOURCE_VALUES = [
 ] as const;
 export type DataSource = (typeof DATA_SOURCE_VALUES)[number];
 
+export const CARTRIDGE_FORMAT_VALUES = ["FULL_CARTRIDGE", "GAME_KEY_CARD", "DIGITAL_ONLY"] as const;
+export type CartridgeFormat = (typeof CARTRIDGE_FORMAT_VALUES)[number];
+
 export const CART_REGION_LABELS: Record<CartRegion, string> = {
   US: "US",
   EU: "EU",

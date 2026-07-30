@@ -2,6 +2,7 @@ import Link from "next/link";
 import { IconHeart } from "@tabler/icons-react";
 import { RegionBadge } from "./RegionBadge";
 import { TrustBadge } from "./TrustBadge";
+import { CartridgeFormatBadge } from "./CartridgeFormatBadge";
 import { LanguageTags } from "./LanguageTags";
 import { parseLanguages } from "@/lib/enums";
 import type { Game, GameRevision } from "@/generated/prisma/client";
@@ -35,6 +36,7 @@ export function GameCard({ game }: { game: Game & { revisions: GameRevision[]; p
       </div>
 
       <div className="mt-3 flex flex-wrap gap-1.5">
+        <CartridgeFormatBadge cartridgeFormat={primary.cartridgeFormat} />
         <RegionBadge
           regionFree={primary.regionFree}
           regionOfCart={primary.regionOfCart}

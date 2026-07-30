@@ -18,6 +18,13 @@
 //   corroborate JP-region language data for titles already selected above,
 //   not as a source of new titles.
 //
+// cartridgeFormat is set to "FULL_CARTRIDGE" for everything here rather than
+// scraped per-title — every title in the curated list predates Switch 2 /
+// Game-Key Cards, so that's a fact, not an assumption. For any future Switch
+// 2 titles added to this script, cross-check Deku Deals' auto-updating list
+// before assuming FULL_CARTRIDGE:
+// https://www.dekudeals.com/guides/about-game-key-card-games
+//
 // Everything produced here is tagged dataSource: "SCRAPED" — automated,
 // lower-trust tier until community-confirmed, same as the rest of the app's
 // scraped data.
@@ -80,6 +87,17 @@ const PUBLISHER_OVERRIDES = {
 // localized subtitle, etc.) — override with the commonly known English title.
 const TITLE_OVERRIDES = {
   "Dragon Quest XI S": "Dragon Quest XI S: Echoes of an Elusive Age – Definitive Edition",
+};
+
+// JP-region listings are almost always in Japanese script, so name-based
+// matching against an English title never finds them — most titles are
+// instead recovered via a shared titleId with the US/EU entry (see
+// findRegionMatch). A handful of JP releases are handled by a different
+// regional publisher/port and get a genuinely different titleId, so those
+// need a manual, individually-verified override. Verified against
+// JP.ja.json by hand — see the investigation in project history.
+const JP_ID_OVERRIDES = {
+  "Persona 5 Royal": "0100B880154FC000", // アトラス (Atlus) JP listing, JA-only
 };
 
 const LANG_CODE_MAP = {
@@ -176,6 +194,32 @@ function findBestMatch(entries, title) {
   return prefixMatch;
 }
 
+function findById(entries, id) {
+  return entries.find((e) => e && e.id === id && !e.isDemo) ?? null;
+}
+
+// Region-by-region lookup for a title, given an "anchor" entry (matched by
+// English name, usually in US or EU). Tries, in order: (1) exact titleId
+// match — reliable across regions since most titles share one application
+// ID worldwide; (2) English-name match — catches the minority of JP/Asia
+// listings that use a Latin title; (3) a manually verified override id for
+// titles whose regional release genuinely has a different titleId.
+function findRegionMatch(entries, title, anchor) {
+  if (anchor) {
+    const byId = findById(entries, anchor.id);
+    if (byId) return byId;
+  }
+  const byName = findBestMatch(entries, title);
+  if (byName) return byName;
+
+  const overrideId = JP_ID_OVERRIDES[title];
+  if (overrideId) {
+    const byOverride = findById(entries, overrideId);
+    if (byOverride) return byOverride;
+  }
+  return null;
+}
+
 function inferLanguageLocked(regionMatches) {
   const langSets = regionMatches.map((m) => mapLanguages(m.languages || []));
   if (langSets.length > 1) {
@@ -197,9 +241,11 @@ async function buildFromTitledb() {
   const games = [];
 
   for (const title of TITLEDB_TITLES) {
+    const anchor = findBestMatch(regionData.US, title) ?? findBestMatch(regionData.EU, title);
+
     const matches = [];
     for (const region of Object.keys(REGION_FILES)) {
-      const m = findBestMatch(regionData[region], title);
+      const m = findRegionMatch(regionData[region], title, anchor);
       if (m) matches.push({ region, entry: m });
     }
     if (matches.length === 0) {
@@ -217,6 +263,9 @@ async function buildFromTitledb() {
       revisions: matches.map(({ region, entry }) => ({
         regionOfCart: region,
         regionFree: "REGION_FREE",
+        // All titles in this curated list predate Switch 2 / Game-Key Cards,
+        // so a real physical release here is always a full cartridge.
+        cartridgeFormat: "FULL_CARTRIDGE",
         languages: mapLanguages(entry.languages || []),
         languageLockedToRegion: languageLocked,
         dataSource: "SCRAPED",
@@ -266,6 +315,7 @@ async function buildFromNintendoSoup() {
         {
           regionOfCart: "US",
           regionFree: "REGION_FREE",
+          cartridgeFormat: "FULL_CARTRIDGE",
           languages: usLangs,
           languageLockedToRegion: languageLocked,
           dataSource: "SCRAPED",
@@ -275,6 +325,7 @@ async function buildFromNintendoSoup() {
         {
           regionOfCart: "JP",
           regionFree: "REGION_FREE",
+          cartridgeFormat: "FULL_CARTRIDGE",
           languages: jpLangs,
           languageLockedToRegion: languageLocked,
           dataSource: "SCRAPED",

@@ -5,6 +5,7 @@ import { prisma } from "../src/lib/db";
 type RevisionSeed = {
   regionOfCart: string;
   regionFree: string;
+  cartridgeFormat: string;
   languages: string[];
   languageLockedToRegion: boolean;
   dataSource: string;
@@ -44,6 +45,7 @@ async function main() {
           create: g.revisions.map((r) => ({
             regionOfCart: r.regionOfCart,
             regionFree: r.regionFree,
+            cartridgeFormat: r.cartridgeFormat,
             languages: JSON.stringify(r.languages),
             languageLockedToRegion: r.languageLockedToRegion,
             dataSource: r.dataSource,

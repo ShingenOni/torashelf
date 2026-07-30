@@ -32,6 +32,7 @@ export async function submitGameRevision(
   const mode = formData.get("mode");
   const regionOfCart = formData.get("regionOfCart");
   const regionFree = formData.get("regionFree");
+  const cartridgeFormat = String(formData.get("cartridgeFormat") ?? "FULL_CARTRIDGE");
   const languageLockedToRegion = formData.get("languageLockedToRegion") === "on";
   const languages = formData.getAll("languages").map(String);
   const extraLanguages = String(formData.get("extraLanguages") ?? "")
@@ -82,6 +83,7 @@ export async function submitGameRevision(
       gameId,
       regionOfCart,
       regionFree,
+      cartridgeFormat,
       languages: JSON.stringify(allLanguages),
       languageLockedToRegion,
       dataSource: "UNVERIFIED_SUBMISSION",

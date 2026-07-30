@@ -9,6 +9,11 @@ const REGION_FREE_OPTIONS = [
   { value: "REGION_LOCKED", label: "Region-locked" },
   { value: "UNKNOWN", label: "Unknown / not sure" },
 ];
+const CARTRIDGE_FORMAT_OPTIONS = [
+  { value: "FULL_CARTRIDGE", label: "Full cartridge — game data is on the cart" },
+  { value: "GAME_KEY_CARD", label: "Game-key card — cart is a license key, needs a full download" },
+  { value: "DIGITAL_ONLY", label: "Digital only — no physical release" },
+];
 const LANGUAGE_OPTIONS = ["EN", "JA", "FR", "DE", "ES", "IT", "KO", "ZH"];
 
 const initialState: SubmitState = { error: null };
@@ -74,6 +79,29 @@ export function SubmitForm({
           </label>
         </div>
       )}
+
+      <label className="flex flex-col gap-1 text-sm">
+        Cartridge format
+        <select name="cartridgeFormat" required defaultValue="FULL_CARTRIDGE" className={inputClass} style={inputStyle}>
+          {CARTRIDGE_FORMAT_OPTIONS.map((c) => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
+        </select>
+        <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+          For Switch 2 titles, check{" "}
+          <a
+            href="https://www.dekudeals.com/guides/about-game-key-card-games"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Deku Deals&apos; Game-Key Card list
+          </a>{" "}
+          if you&apos;re not sure.
+        </span>
+      </label>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="flex flex-col gap-1 text-sm">
