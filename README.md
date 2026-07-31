@@ -5,7 +5,7 @@ Track which Nintendo Switch cartridges are actually region-free, what languages 
 ## Stack
 
 - Next.js (App Router) + TypeScript
-- Prisma ORM, SQLite locally (`better-sqlite3` driver adapter)
+- Prisma ORM, Postgres (`pg` driver adapter) — [Neon](https://neon.tech) in production
 - Auth.js (magic-link email, dev mode prints the link to the terminal instead of sending real email)
 - Tailwind CSS
 
@@ -22,9 +22,7 @@ Open [http://localhost:3000](http://localhost:3000). Signing in during local dev
 
 ### Environment variables
 
-See `.env` for local dev defaults. At minimum:
-
-- `DATABASE_URL` — SQLite file path locally (`file:./dev.db`)
+- `DATABASE_URL` — Postgres connection string. Locally, point this at a dev Postgres instance (e.g. a separate Neon project/branch); there's no SQLite fallback anymore.
 - `AUTH_SECRET` — Auth.js session/token signing secret (generate a new one for any real deployment: `openssl rand -base64 32`)
 
 ## Data

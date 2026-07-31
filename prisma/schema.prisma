@@ -7,12 +7,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
-// SQLite has no native enum type — Prisma stores these as TEXT and
-// enforces the enum at the application layer. Values map 1:1 to real
-// enums once we migrate the datasource to Postgres.
+// These are stored as TEXT/String and enforced at the application layer
+// rather than as native Postgres enums, matching how the app already reads
+// and writes them — switching to real enums is a separate, later change.
 
 model Game {
   id          String   @id @default(cuid())
