@@ -1,31 +1,43 @@
 import NextAuth from "next-auth";
 import type { EmailConfig } from "next-auth/providers/email";
+import { Resend } from "resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/db";
-import { EARLY_ADOPTER_THRESHOLD } from "@/lib/constants";
+import { EARLY_ADOPTER_THRESHOLD, EMAIL_DELIVERY_ENABLED } from "@/lib/constants";
 
-// Dev-mode magic-link "sender": instead of wiring a real SMTP/Resend
-// account, the sign-in link is printed to the server terminal. Swapping in
-// real email later is just replacing sendVerificationRequest — nothing else
-// in the app depends on how the link gets delivered.
-const devConsoleEmailProvider: EmailConfig = {
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
+
+// Sends the magic sign-in link via Resend when RESEND_API_KEY is set
+// (production); otherwise prints it to the server console so local dev
+// doesn't need a Resend account to sign in.
+const emailProvider: EmailConfig = {
   id: "email",
   type: "email",
   name: "Email",
-  from: "onboarding@dev.local",
+  from: "ToraShelf <noreply@torashelf.com>",
   maxAge: 24 * 60 * 60,
-  server: "dev-stub",
+  server: EMAIL_DELIVERY_ENABLED ? "resend" : "dev-stub",
   async sendVerificationRequest({ identifier, url }) {
-    console.log("\n" + "=".repeat(70));
-    console.log(`Magic sign-in link for ${identifier}:`);
-    console.log(url);
-    console.log("=".repeat(70) + "\n");
+    if (!resend) {
+      console.log("\n" + "=".repeat(70));
+      console.log(`Magic sign-in link for ${identifier}:`);
+      console.log(url);
+      console.log("=".repeat(70) + "\n");
+      return;
+    }
+    await resend.emails.send({
+      from: "ToraShelf <noreply@torashelf.com>",
+      to: identifier,
+      subject: "Sign in to ToraShelf",
+      html: `<p>Click the link below to sign in to ToraShelf:</p><p><a href="${url}">${url}</a></p><p>This link expires in 24 hours.</p>`,
+      text: `Sign in to ToraShelf: ${url}\n\nThis link expires in 24 hours.`,
+    });
   },
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  providers: [devConsoleEmailProvider],
+  providers: [emailProvider],
   session: { strategy: "database" },
   pages: {
     signIn: "/signin",

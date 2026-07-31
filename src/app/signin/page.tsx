@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { signIn } from "@/auth";
+import { EMAIL_DELIVERY_ENABLED } from "@/lib/constants";
 
 export default function SignInPage() {
   return (
@@ -60,10 +61,12 @@ export default function SignInPage() {
         </button>
       </form>
 
-      <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
-        Dev mode: no email is actually sent. The link is printed in the dev server&apos;s terminal —
-        copy it from there into your browser.
-      </p>
+      {!EMAIL_DELIVERY_ENABLED && (
+        <p className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+          Dev mode: no email is actually sent. The link is printed in the dev server&apos;s terminal —
+          copy it from there into your browser.
+        </p>
+      )}
     </main>
   );
 }

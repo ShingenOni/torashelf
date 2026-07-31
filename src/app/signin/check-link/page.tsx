@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { IconArrowLeft, IconTerminal2 } from "@tabler/icons-react";
+import { IconArrowLeft, IconMail, IconTerminal2 } from "@tabler/icons-react";
+import { EMAIL_DELIVERY_ENABLED } from "@/lib/constants";
 
 export default function CheckLinkPage() {
   return (
@@ -14,15 +15,29 @@ export default function CheckLinkPage() {
       </Link>
 
       <div className="rounded-xl border p-4" style={{ background: "var(--surface-2)", borderColor: "var(--border)" }}>
-        <div className="flex items-center gap-2">
-          <IconTerminal2 size={18} style={{ color: "var(--text-secondary)" }} />
-          <h1 className="text-lg font-semibold">Check your terminal</h1>
-        </div>
-        <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>
-          No email was actually sent — this app is in dev mode. Look at the dev server&apos;s terminal
-          output for a line starting with <span className="font-mono">Magic sign-in link for…</span>{" "}
-          and open that URL to finish signing in.
-        </p>
+        {EMAIL_DELIVERY_ENABLED ? (
+          <>
+            <div className="flex items-center gap-2">
+              <IconMail size={18} style={{ color: "var(--text-secondary)" }} />
+              <h1 className="text-lg font-semibold">Check your email</h1>
+            </div>
+            <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+              We sent a sign-in link to your email address. Open it to finish signing in.
+            </p>
+          </>
+        ) : (
+          <>
+            <div className="flex items-center gap-2">
+              <IconTerminal2 size={18} style={{ color: "var(--text-secondary)" }} />
+              <h1 className="text-lg font-semibold">Check your terminal</h1>
+            </div>
+            <p className="mt-2 text-sm" style={{ color: "var(--text-secondary)" }}>
+              No email was actually sent — this app is in dev mode. Look at the dev server&apos;s terminal
+              output for a line starting with <span className="font-mono">Magic sign-in link for…</span>{" "}
+              and open that URL to finish signing in.
+            </p>
+          </>
+        )}
       </div>
     </main>
   );
