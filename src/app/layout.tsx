@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Switch Region & Language DB",
+  title: "ToraShelf",
   description: "Track region-free status and language support for Nintendo Switch cartridges.",
 };
 

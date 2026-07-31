@@ -37,7 +37,7 @@ export default async function BrowsePage({
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-4 px-4 py-8">
       <div>
-        <h1 className="text-xl font-semibold">Switch Region &amp; Language Database</h1>
+        <h1 className="text-xl font-semibold">ToraShelf</h1>
         <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
           Region-free status and language support, per regional print.
         </p>

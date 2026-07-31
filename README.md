@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ToraShelf
 
-## Getting Started
+Track which Nintendo Switch cartridges are actually region-free, what languages they carry per print, and whether "physical" really means the game is on the cart — as opposed to a Game-Key Card or a digital-only listing.
 
-First, run the development server:
+## Stack
+
+- Next.js (App Router) + TypeScript
+- Prisma ORM, SQLite locally (`better-sqlite3` driver adapter)
+- Auth.js (magic-link email, dev mode prints the link to the terminal instead of sending real email)
+- Tailwind CSS
+
+## Getting started
 
 ```bash
+npm install
+npx prisma migrate dev
+npx prisma db seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Signing in during local dev doesn't send a real email — the magic link is printed to the terminal running `npm run dev`; copy it into your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `.env` for local dev defaults. At minimum:
 
-## Learn More
+- `DATABASE_URL` — SQLite file path locally (`file:./dev.db`)
+- `AUTH_SECRET` — Auth.js session/token signing secret (generate a new one for any real deployment: `openssl rand -base64 32`)
 
-To learn more about Next.js, take a look at the following resources:
+## Data
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`prisma/seed-data.json` is a curated, real-data snapshot (not sample/placeholder data), built by `scripts/fetch-titledb-seed.mjs` from nsw-titledb, physicalreleases.com, Deku Deals, NintendoSoup, and Perfectly Nintendo. Re-run that script to refresh it — see the comments at the top of the script for how the sources fit together and what each is used for. Titles that couldn't be matched are logged in `prisma/unmatched-physical-releases.json` rather than silently dropped.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Useful scripts
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev` — start the dev server
+- `npm run build` — production build
+- `npm run lint` — ESLint
+- `npx prisma studio` — browse the local database
+- `node scripts/fetch-titledb-seed.mjs` — regenerate `prisma/seed-data.json` from public sources
