@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { IconLogin, IconUserCircle } from "@tabler/icons-react";
 import { auth } from "@/auth";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 // Deliberately separate from BrowseToolbar's "My collection" button — that
 // one only appears on the browse page and is easy to miss unless you
@@ -17,25 +18,33 @@ export async function SiteHeader() {
           ToraShelf
         </Link>
 
-        {session?.user ? (
-          <Link
-            href="/collection"
-            className="inline-flex items-center gap-1.5 text-sm"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            <IconUserCircle size={16} />
-            {session.user.name || session.user.email}
+        <div className="flex items-center gap-4">
+          <Link href="/recent" className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            Recently added
           </Link>
-        ) : (
-          <Link
-            href="/signin"
-            className="inline-flex items-center gap-1.5 rounded-[var(--radius)] px-3 py-1.5 text-sm font-medium"
-            style={{ background: "var(--foreground)", color: "var(--background)" }}
-          >
-            <IconLogin size={15} />
-            Sign In
-          </Link>
-        )}
+
+          <ThemeToggle />
+
+          {session?.user ? (
+            <Link
+              href="/collection"
+              className="inline-flex items-center gap-1.5 text-sm"
+              style={{ color: "var(--text-secondary)" }}
+            >
+              <IconUserCircle size={16} />
+              {session.user.name || session.user.email}
+            </Link>
+          ) : (
+            <Link
+              href="/signin"
+              className="inline-flex items-center gap-1.5 rounded-[var(--radius)] px-3 py-1.5 text-sm font-medium"
+              style={{ background: "var(--foreground)", color: "var(--background)" }}
+            >
+              <IconLogin size={15} />
+              Sign In
+            </Link>
+          )}
+        </div>
       </div>
     </header>
   );

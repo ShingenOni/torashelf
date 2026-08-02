@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { IconAlertTriangle, IconArrowLeft, IconCheck } from "@tabler/icons-react";
+import { IconAlertTriangle, IconArrowLeft, IconCheck, IconDownload } from "@tabler/icons-react";
 import { auth, signOut } from "@/auth";
 import { prisma } from "@/lib/db";
 import { RegionBadge } from "@/components/RegionBadge";
@@ -64,6 +64,16 @@ export default async function CollectionPage() {
       </div>
 
       <ProfileForm name={user.name} homeRegion={user.homeRegion} preferredLanguages={preferredLanguages} />
+
+      <a
+        href="/api/collection/export"
+        download
+        className="inline-flex w-fit items-center gap-1.5 rounded-[var(--radius)] border px-3 py-2 text-sm"
+        style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
+      >
+        <IconDownload size={15} />
+        Export collection as CSV
+      </a>
 
       {STATUS_SECTIONS.map((section) => {
         const sectionEntries = entries.filter((e) => e.status === section.status);
