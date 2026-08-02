@@ -48,7 +48,7 @@ export default async function CollectionPage() {
             {user.isEarlyAdopter && <EarlyAdopterBadge signupNumber={user.signupNumber} />}
           </div>
           <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
-            Signed in as {user.email}
+            Signed in as {user.name || user.email}
           </p>
         </div>
         <form

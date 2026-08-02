@@ -24,7 +24,7 @@ export async function SiteHeader() {
             style={{ color: "var(--text-secondary)" }}
           >
             <IconUserCircle size={16} />
-            {session.user.email}
+            {session.user.name || session.user.email}
           </Link>
         ) : (
           <Link
