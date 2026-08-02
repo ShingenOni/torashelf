@@ -3,6 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 import { getCurrentUser } from "@/lib/auth";
+import { sanitizeText } from "@/lib/sanitize";
+
+const MAX_NICKNAME_LENGTH = 30;
 
 const STATUS_VALUES = ["OWNED", "WISHLIST", "CONSIDERING_IMPORT"] as const;
 
@@ -53,6 +56,7 @@ export async function updateProfile(_prevState: ProfileState, formData: FormData
 
   const homeRegion = formData.get("homeRegion");
   const languages = formData.getAll("preferredLanguages").map(String);
+  const name = sanitizeText(formData.get("name"), MAX_NICKNAME_LENGTH);
 
   if (typeof homeRegion !== "string" || !homeRegion) {
     return { error: "Choose a home region." };
@@ -63,7 +67,7 @@ export async function updateProfile(_prevState: ProfileState, formData: FormData
 
   await prisma.user.update({
     where: { id: user.id },
-    data: { homeRegion, preferredLanguages: JSON.stringify(languages) },
+    data: { homeRegion, preferredLanguages: JSON.stringify(languages), name },
   });
 
   revalidatePath("/collection");

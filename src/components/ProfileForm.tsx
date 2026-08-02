@@ -10,9 +10,11 @@ const initialState: ProfileState = { error: null };
 const inputStyle = { background: "var(--surface-1)", borderColor: "var(--border)" };
 
 export function ProfileForm({
+  name,
   homeRegion,
   preferredLanguages,
 }: {
+  name: string | null;
   homeRegion: string;
   preferredLanguages: string[];
 }) {
@@ -24,6 +26,22 @@ export function ProfileForm({
       className="flex flex-wrap items-end gap-4 rounded-xl border p-4"
       style={{ background: "var(--surface-2)", borderColor: "var(--border)" }}
     >
+      <label className="flex flex-col gap-1 text-sm">
+        Display name
+        <input
+          type="text"
+          name="name"
+          maxLength={30}
+          defaultValue={name ?? ""}
+          placeholder="Anonymous"
+          className="rounded-[var(--radius)] border px-3 py-2 text-sm"
+          style={inputStyle}
+        />
+        <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+          Shown on your submissions instead of your email. Leave blank to stay anonymous.
+        </span>
+      </label>
+
       <label className="flex flex-col gap-1 text-sm">
         Home region
         <select

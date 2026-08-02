@@ -63,7 +63,7 @@ export default async function CollectionPage() {
         </form>
       </div>
 
-      <ProfileForm homeRegion={user.homeRegion} preferredLanguages={preferredLanguages} />
+      <ProfileForm name={user.name} homeRegion={user.homeRegion} preferredLanguages={preferredLanguages} />
 
       {STATUS_SECTIONS.map((section) => {
         const sectionEntries = entries.filter((e) => e.status === section.status);

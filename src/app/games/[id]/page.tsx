@@ -109,7 +109,11 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                 )}
 
                 <div className="mt-3 flex items-center justify-between text-[12px]" style={{ color: "var(--text-muted)" }}>
-                  <span>Updated {revision.updatedAt.toLocaleDateString()}</span>
+                  <span>
+                    Updated {revision.updatedAt.toLocaleDateString()}
+                    {revision.submittedByUserId &&
+                      ` · Submitted by ${revision.submittedByUser?.name || "Anonymous"}`}
+                  </span>
                   {revision.sourceCitation && (
                     <a
                       href={revision.sourceCitation}

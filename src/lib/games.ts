@@ -73,7 +73,11 @@ export async function getGameWithRevisions(id: string) {
       revisions: {
         where: { isHidden: false },
         orderBy: { createdAt: "asc" },
-        include: { votes: true, collectionEntries: true },
+        include: {
+          votes: true,
+          collectionEntries: true,
+          submittedByUser: { select: { name: true } },
+        },
       },
     },
   });
