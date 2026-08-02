@@ -13,6 +13,12 @@ const REGION_OPTIONS = [
 
 const LANGUAGE_OPTIONS = ["EN", "JA", "FR", "DE", "ES", "IT", "KO", "ZH"];
 
+const SORT_OPTIONS = [
+  { value: "alphabetical", label: "A–Z" },
+  { value: "recent", label: "Recently added" },
+  { value: "disputed", label: "Most disputed" },
+];
+
 function parseListParam(value: string | null): string[] {
   return value ? value.split(",").filter(Boolean) : [];
 }
@@ -20,9 +26,11 @@ function parseListParam(value: string | null): string[] {
 export function BrowseToolbar({
   publishers,
   isSignedIn,
+  sort,
 }: {
   publishers: string[];
   isSignedIn: boolean;
+  sort: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -82,6 +90,19 @@ export function BrowseToolbar({
           {publishers.map((p) => (
             <option key={p} value={p}>
               {p}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={sort}
+          onChange={(e) => updateParams({ sort: e.target.value === "alphabetical" ? null : e.target.value })}
+          className="rounded-[var(--radius)] border py-2 px-3 text-sm"
+          style={{ background: "var(--surface-1)", borderColor: "var(--border)", color: "var(--text-secondary)" }}
+        >
+          {SORT_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              Sort: {opt.label}
             </option>
           ))}
         </select>

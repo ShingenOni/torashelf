@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
 import { prisma } from "@/lib/db";
 
-export type RateLimitAction = "SUBMIT_GAME" | "VOTE" | "REPORT";
+export type RateLimitAction = "SUBMIT_GAME" | "VOTE" | "REPORT" | "CONTACT";
 
 type RateLimitConfig = {
   userMax: number;
@@ -18,6 +18,7 @@ const LIMITS: Record<RateLimitAction, RateLimitConfig> = {
   SUBMIT_GAME: { userMax: 5, ipMax: 10, windowMinutes: 60, label: "submissions" },
   VOTE: { userMax: 30, ipMax: 60, windowMinutes: 60, label: "votes" },
   REPORT: { userMax: 10, ipMax: 20, windowMinutes: 60, label: "reports" },
+  CONTACT: { userMax: 5, ipMax: 8, windowMinutes: 60, label: "messages" },
 };
 
 export async function getClientIp(): Promise<string | null> {

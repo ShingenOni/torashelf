@@ -36,9 +36,20 @@ export default function RootLayout({
           className="border-t px-4 py-6 text-center text-[13px]"
           style={{ borderColor: "var(--border)", color: "var(--text-muted)" }}
         >
-          <Link href="/support" className="underline">
-            Support this project
-          </Link>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link href="/about" className="underline">
+              About / FAQ
+            </Link>
+            <Link href="/contact" className="underline">
+              Contact
+            </Link>
+            <Link href="/support" className="underline">
+              Support this project
+            </Link>
+            <Link href="/privacy" className="underline">
+              Privacy &amp; Terms
+            </Link>
+          </div>
         </footer>
       </body>
     </html>

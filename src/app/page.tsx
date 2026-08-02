@@ -1,7 +1,7 @@
 import { BrowseToolbar } from "@/components/BrowseToolbar";
 import { GameCard } from "@/components/GameCard";
 import { Pagination } from "@/components/Pagination";
-import { getBrowseGames, getPublishers } from "@/lib/games";
+import { getBrowseGames, getPublishers, SORT_VALUES, type SortOption } from "@/lib/games";
 import { auth } from "@/auth";
 
 function parseListParam(value: string | string[] | undefined): string[] {
@@ -19,6 +19,10 @@ export default async function BrowsePage({
   const publisher = Array.isArray(params.publisher) ? params.publisher[0] : params.publisher;
   const pageParam = Array.isArray(params.page) ? params.page[0] : params.page;
   const page = Math.max(1, parseInt(pageParam ?? "1", 10) || 1);
+  const sortParam = Array.isArray(params.sort) ? params.sort[0] : params.sort;
+  const sort: SortOption = (SORT_VALUES as readonly string[]).includes(sortParam ?? "")
+    ? (sortParam as SortOption)
+    : "alphabetical";
 
   const [{ games, total, pageCount }, publishers, session] = await Promise.all([
     getBrowseGames(
@@ -29,6 +33,7 @@ export default async function BrowsePage({
         langs: parseListParam(params.lang),
       },
       page,
+      sort,
     ),
     getPublishers(),
     auth(),
@@ -43,7 +48,7 @@ export default async function BrowsePage({
         </p>
       </div>
 
-      <BrowseToolbar publishers={publishers} isSignedIn={!!session?.user} />
+      <BrowseToolbar publishers={publishers} isSignedIn={!!session?.user} sort={sort} />
 
       {games.length === 0 ? (
         <p className="py-12 text-center text-sm" style={{ color: "var(--text-muted)" }}>

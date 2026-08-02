@@ -1,11 +1,9 @@
 import NextAuth from "next-auth";
 import type { EmailConfig } from "next-auth/providers/email";
-import { Resend } from "resend";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/db";
+import { resend } from "@/lib/email";
 import { EARLY_ADOPTER_THRESHOLD, EMAIL_DELIVERY_ENABLED } from "@/lib/constants";
-
-const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Sends the magic sign-in link via Resend when RESEND_API_KEY is set
 // (production); otherwise prints it to the server console so local dev
