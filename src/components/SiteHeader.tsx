@@ -18,9 +18,13 @@ export async function SiteHeader() {
           ToraShelf
         </Link>
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           <Link href="/recent" className="text-sm" style={{ color: "var(--text-secondary)" }}>
             Recently added
+          </Link>
+
+          <Link href="/leaderboard" className="text-sm" style={{ color: "var(--text-secondary)" }}>
+            Leaderboard
           </Link>
 
           <ThemeToggle />

@@ -49,7 +49,9 @@ export default function PrivacyPage() {
             Your email address is never shown publicly — only you can see it, while signed in. If you set a display
             name, it&apos;s shown as attribution on submissions you make; if you don&apos;t, submissions show as
             &ldquo;Anonymous.&rdquo; Vote counts are aggregate numbers only — individual votes aren&apos;t
-            attributed to a name or email anywhere on the site.
+            attributed to a name or email anywhere on the site. The leaderboard shows total counts (verified
+            submissions, votes cast) next to your display name or &ldquo;Anonymous&rdquo; — the same rule applies:
+            don&apos;t set a display name if you&apos;d rather your activity totals not be personally identifiable.
           </p>
         </div>
 
