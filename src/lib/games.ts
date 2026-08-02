@@ -19,6 +19,17 @@ function pickPrimaryRevision<T extends { dataSource: string }>(revisions: T[]): 
   );
 }
 
+// Prisma's `contains`/`mode: "insensitive"` can't fold accents (searching
+// "pokemon" won't match "Pokémon"), and the fix needs Postgres's unaccent()
+// function, which Prisma's query builder has no way to call inline — hence
+// the raw query, scoped to just resolving which game ids match the title.
+async function getMatchingTitleIds(q: string): Promise<string[]> {
+  const rows = await prisma.$queryRaw<{ id: string }[]>`
+    SELECT id FROM "Game" WHERE unaccent(title) ILIKE unaccent(${"%" + q + "%"})
+  `;
+  return rows.map((r) => r.id);
+}
+
 // Region/language filters are applied as part of the WHERE clause (not
 // post-fetch in JS) specifically so pagination stays correct — with ~2,000
 // games in the catalog, loading everything and filtering/paginating in
@@ -32,6 +43,8 @@ export async function getBrowseGames(
   page: number,
   sort: SortOption = "alphabetical",
 ) {
+  const titleIds = filters.q ? await getMatchingTitleIds(filters.q) : null;
+
   const revisionFilter = {
     isHidden: false,
     ...(filters.regions.length ? { regionFree: { in: filters.regions } } : {}),
@@ -41,7 +54,7 @@ export async function getBrowseGames(
   };
 
   const where = {
-    title: filters.q ? { contains: filters.q } : undefined,
+    ...(titleIds ? { id: { in: titleIds } } : {}),
     publisher: filters.publisher || undefined,
     revisions: { some: revisionFilter },
   };
