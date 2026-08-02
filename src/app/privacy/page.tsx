@@ -68,8 +68,8 @@ export default function PrivacyPage() {
           <p className="mt-1">
             You can update your display name, home region, and languages yourself from your collection page at any
             time. To access, correct, or delete any other data — including deleting your account entirely —{" "}
-            <Link href="/contact" className="underline">contact us</Link> and we&apos;ll handle it directly, since
-            there&apos;s no automated self-service deletion yet.
+            <Link href="/contact" className="underline">contact us</Link>{" "}
+            and we&apos;ll handle it directly, since there&apos;s no automated self-service deletion yet.
           </p>
         </div>
 
