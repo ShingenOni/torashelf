@@ -1,19 +1,15 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/db";
-import { CART_REGION_LABELS, parseLanguages, type CartRegion } from "@/lib/enums";
-
-const REGION_FREE_LABELS: Record<string, string> = {
-  REGION_FREE: "Region-free",
-  REGION_LOCKED: "Region-locked",
-  UNKNOWN: "Unknown",
-};
-
-const CARTRIDGE_FORMAT_LABELS: Record<string, string> = {
-  FULL_CARTRIDGE: "Full cartridge",
-  GAME_KEY_CARD: "Game-Key Card",
-  DIGITAL_ONLY: "Digital only",
-};
+import {
+  CART_REGION_LABELS,
+  CARTRIDGE_FORMAT_LABELS,
+  REGION_FREE_LABELS,
+  parseLanguages,
+  type CartRegion,
+  type CartridgeFormat,
+  type RegionFree,
+} from "@/lib/enums";
 
 const STATUS_LABELS: Record<string, string> = {
   OWNED: "Owned",
@@ -60,8 +56,8 @@ export async function GET(request: Request) {
         r.game.publisher,
         STATUS_LABELS[entry.status] ?? entry.status,
         CART_REGION_LABELS[r.regionOfCart as CartRegion] ?? r.regionOfCart,
-        REGION_FREE_LABELS[r.regionFree] ?? r.regionFree,
-        CARTRIDGE_FORMAT_LABELS[r.cartridgeFormat] ?? r.cartridgeFormat,
+        REGION_FREE_LABELS[r.regionFree as RegionFree] ?? r.regionFree,
+        CARTRIDGE_FORMAT_LABELS[r.cartridgeFormat as CartridgeFormat] ?? r.cartridgeFormat,
         parseLanguages(r.languages).join("; "),
         r.notes ?? "",
       ]);

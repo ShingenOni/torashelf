@@ -60,7 +60,21 @@ model GameRevision {
   // Set once a revision accumulates enough open spam/abuse reports (see
   // REPORT_HIDE_THRESHOLD) — hidden entries are filtered out of browse/detail
   // queries but not deleted, so a moderator can still review and reverse it.
+  // Also set (for a different reason) once a correction proposal resolves —
+  // see correctsRevisionId below.
   isHidden Boolean @default(false)
+
+  // Set when this row is a proposed correction to an existing print rather
+  // than a standalone print of its own. Routed through the same
+  // confirm/dispute voting as everything else, but resolves by either
+  // applying its fields onto the target and hiding itself (confirmed) or
+  // just hiding itself (disputed) — it never becomes a second visible print
+  // for the same release. Only one pending (non-hidden) correction per
+  // target is allowed at a time, enforced at submission time rather than by
+  // a DB constraint (not worth a partial index at this scale).
+  correctsRevisionId String?
+  correctsRevision    GameRevision?  @relation("RevisionCorrections", fields: [correctsRevisionId], references: [id], onDelete: Cascade)
+  corrections         GameRevision[] @relation("RevisionCorrections")
 
   votes             SubmissionVote[]
   collectionEntries CollectionEntry[]
@@ -73,6 +87,7 @@ model GameRevision {
   @@index([regionOfCart])
   @@index([regionFree])
   @@index([submittedByUserId])
+  @@index([correctsRevisionId])
 }
 
 model User {

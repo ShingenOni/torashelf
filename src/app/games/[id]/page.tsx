@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { IconArrowLeft, IconExternalLink, IconPlus } from "@tabler/icons-react";
+import { IconArrowLeft, IconEdit, IconExternalLink, IconPlus } from "@tabler/icons-react";
 import { RegionBadge } from "@/components/RegionBadge";
 import { TrustBadge } from "@/components/TrustBadge";
 import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
@@ -10,7 +10,77 @@ import { CollectionControl } from "@/components/CollectionControl";
 import { ReportButton } from "@/components/ReportButton";
 import { getGameWithRevisions } from "@/lib/games";
 import { getCurrentUserId } from "@/lib/auth";
-import { CART_REGION_LABELS, parseLanguages, type CartRegion } from "@/lib/enums";
+import {
+  CART_REGION_LABELS,
+  CARTRIDGE_FORMAT_LABELS,
+  REGION_FREE_LABELS,
+  parseLanguages,
+  type CartRegion,
+  type CartridgeFormat,
+  type RegionFree,
+} from "@/lib/enums";
+
+type RevisionLike = {
+  regionOfCart: string;
+  regionFree: string;
+  cartridgeFormat: string;
+  languages: string;
+  languageLockedToRegion: boolean;
+  notes: string | null;
+  sourceCitation: string | null;
+};
+
+// Shows only the fields a correction actually changes, so a one-line
+// language tweak doesn't get buried under a wall of unchanged values.
+function describeCorrectionChanges(original: RevisionLike, correction: RevisionLike) {
+  const changes: { label: string; from: string; to: string }[] = [];
+
+  if (original.regionOfCart !== correction.regionOfCart) {
+    changes.push({
+      label: "Cart region",
+      from: CART_REGION_LABELS[original.regionOfCart as CartRegion] ?? original.regionOfCart,
+      to: CART_REGION_LABELS[correction.regionOfCart as CartRegion] ?? correction.regionOfCart,
+    });
+  }
+  if (original.regionFree !== correction.regionFree) {
+    changes.push({
+      label: "Region-free status",
+      from: REGION_FREE_LABELS[original.regionFree as RegionFree] ?? original.regionFree,
+      to: REGION_FREE_LABELS[correction.regionFree as RegionFree] ?? correction.regionFree,
+    });
+  }
+  if (original.cartridgeFormat !== correction.cartridgeFormat) {
+    changes.push({
+      label: "Cartridge format",
+      from: CARTRIDGE_FORMAT_LABELS[original.cartridgeFormat as CartridgeFormat] ?? original.cartridgeFormat,
+      to: CARTRIDGE_FORMAT_LABELS[correction.cartridgeFormat as CartridgeFormat] ?? correction.cartridgeFormat,
+    });
+  }
+  const originalLangs = parseLanguages(original.languages).join(", ");
+  const correctionLangs = parseLanguages(correction.languages).join(", ");
+  if (originalLangs !== correctionLangs) {
+    changes.push({ label: "Languages", from: originalLangs || "(none)", to: correctionLangs || "(none)" });
+  }
+  if (original.languageLockedToRegion !== correction.languageLockedToRegion) {
+    changes.push({
+      label: "Language locked to region",
+      from: original.languageLockedToRegion ? "Yes" : "No",
+      to: correction.languageLockedToRegion ? "Yes" : "No",
+    });
+  }
+  if ((original.notes ?? "") !== (correction.notes ?? "")) {
+    changes.push({ label: "Notes", from: original.notes || "(none)", to: correction.notes || "(none)" });
+  }
+  if ((original.sourceCitation ?? "") !== (correction.sourceCitation ?? "")) {
+    changes.push({
+      label: "Source",
+      from: original.sourceCitation || "(none)",
+      to: correction.sourceCitation || "(none)",
+    });
+  }
+
+  return changes;
+}
 
 export default async function GameDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -50,7 +120,7 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
             style={{ color: "var(--text-secondary)" }}
           >
             <IconPlus size={14} />
-            Add a print / correction
+            Add a print
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -70,6 +140,20 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
               ? revision.collectionEntries.find((c) => c.userId === currentUserId)?.status
               : null) as "OWNED" | "WISHLIST" | "CONSIDERING_IMPORT" | null | undefined;
 
+            const pendingCorrection = revision.corrections[0];
+            const correctionChanges = pendingCorrection
+              ? describeCorrectionChanges(revision, pendingCorrection)
+              : [];
+            const correctionConfirms = pendingCorrection
+              ? pendingCorrection.votes.filter((v) => v.vote === "CONFIRM").length
+              : 0;
+            const correctionDisputes = pendingCorrection
+              ? pendingCorrection.votes.filter((v) => v.vote === "DISPUTE").length
+              : 0;
+            const correctionCurrentVote = (pendingCorrection && currentUserId
+              ? pendingCorrection.votes.find((v) => v.userId === currentUserId)?.vote
+              : null) as "CONFIRM" | "DISPUTE" | null | undefined;
+
             return (
               <div
                 key={revision.id}
@@ -79,6 +163,16 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
               >
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-semibold">{regionLabel} cart</p>
+                  {!pendingCorrection && (
+                    <Link
+                      href={`/games/${game.id}/correct/${revision.id}`}
+                      className="inline-flex items-center gap-1 text-[12px]"
+                      style={{ color: "var(--text-secondary)" }}
+                    >
+                      <IconEdit size={12} />
+                      Suggest a correction
+                    </Link>
+                  )}
                 </div>
 
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -143,6 +237,34 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                 />
 
                 <ReportButton gameRevisionId={revision.id} isSignedIn={isSignedIn} />
+
+                {pendingCorrection && (
+                  <div
+                    className="mt-3 rounded-[var(--radius)] border border-dashed p-3"
+                    style={{ borderColor: "var(--border-trust-unverified)", background: "var(--bg-trust-unverified)" }}
+                  >
+                    <p className="text-[12px] font-medium" style={{ color: "var(--text-trust-unverified)" }}>
+                      Pending correction{" "}
+                      {pendingCorrection.submittedByUserId &&
+                        `· suggested by ${pendingCorrection.submittedByUser?.name || "Anonymous"}`}
+                    </p>
+                    <ul className="mt-1.5 flex flex-col gap-0.5 text-[12px]" style={{ color: "var(--text-secondary)" }}>
+                      {correctionChanges.map((change) => (
+                        <li key={change.label}>
+                          <strong>{change.label}:</strong> {change.from} → {change.to}
+                        </li>
+                      ))}
+                    </ul>
+                    <VotePanel
+                      gameRevisionId={pendingCorrection.id}
+                      confirms={correctionConfirms}
+                      disputes={correctionDisputes}
+                      currentVote={correctionCurrentVote ?? null}
+                      disputeEvidence={[]}
+                      isSignedIn={isSignedIn}
+                    />
+                  </div>
+                )}
               </div>
             );
           })}

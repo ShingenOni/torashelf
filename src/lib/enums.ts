@@ -22,6 +22,18 @@ export const CART_REGION_LABELS: Record<CartRegion, string> = {
   OTHER: "Other",
 };
 
+export const REGION_FREE_LABELS: Record<RegionFree, string> = {
+  REGION_FREE: "Region-free",
+  REGION_LOCKED: "Region-locked",
+  UNKNOWN: "Unknown",
+};
+
+export const CARTRIDGE_FORMAT_LABELS: Record<CartridgeFormat, string> = {
+  FULL_CARTRIDGE: "Full cartridge",
+  GAME_KEY_CARD: "Game-Key Card",
+  DIGITAL_ONLY: "Digital only",
+};
+
 export function parseLanguages(json: string): string[] {
   try {
     const parsed = JSON.parse(json);

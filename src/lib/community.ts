@@ -12,6 +12,7 @@ import { sanitizeText, tooManyLinks, validateUrl } from "@/lib/sanitize";
 
 const CONFIRM_THRESHOLD = 3;
 const REPORT_HIDE_THRESHOLD = 3;
+const CORRECTION_DISPUTE_THRESHOLD = 3;
 
 const ALLOWED_EVIDENCE_TYPES: Record<string, string> = {
   "image/png": ".png",
@@ -30,26 +31,20 @@ function isHoneypotTripped(formData: FormData): boolean {
 
 export type SubmitState = { error: string | null };
 
-export async function submitGameRevision(
-  _prevState: SubmitState,
-  formData: FormData,
-): Promise<SubmitState> {
-  if (isHoneypotTripped(formData)) {
-    return { error: "Something went wrong. Please try again." };
-  }
+type ParsedRevisionFields = {
+  regionOfCart: string;
+  regionFree: string;
+  cartridgeFormat: string;
+  languages: string;
+  languageLockedToRegion: boolean;
+  sourceCitation: string | null;
+  notes: string | null;
+};
 
-  const user = await getCurrentUser();
-  if (!user) {
-    return { error: "Sign in to submit a game or correction." };
-  }
-
-  const ip = await getClientIp();
-  const rateLimit = await enforceRateLimit("SUBMIT_GAME", user.id, ip);
-  if (!rateLimit.ok) {
-    return { error: rateLimit.error };
-  }
-
-  const mode = formData.get("mode");
+// Shared by submitGameRevision (new print) and submitCorrection (proposed
+// fix to an existing print) — both collect the exact same descriptive
+// fields, just attach them to the game differently.
+function parseRevisionFields(formData: FormData): { data: ParsedRevisionFields } | { error: string } {
   const regionOfCart = formData.get("regionOfCart");
   const regionFree = formData.get("regionFree");
   const cartridgeFormat = String(formData.get("cartridgeFormat") ?? "FULL_CARTRIDGE");
@@ -86,6 +81,44 @@ export async function submitGameRevision(
     return { error: "Select or enter at least one language." };
   }
 
+  return {
+    data: {
+      regionOfCart,
+      regionFree,
+      cartridgeFormat,
+      languages: JSON.stringify(allLanguages),
+      languageLockedToRegion,
+      sourceCitation,
+      notes,
+    },
+  };
+}
+
+export async function submitGameRevision(
+  _prevState: SubmitState,
+  formData: FormData,
+): Promise<SubmitState> {
+  if (isHoneypotTripped(formData)) {
+    return { error: "Something went wrong. Please try again." };
+  }
+
+  const user = await getCurrentUser();
+  if (!user) {
+    return { error: "Sign in to submit a game or correction." };
+  }
+
+  const ip = await getClientIp();
+  const rateLimit = await enforceRateLimit("SUBMIT_GAME", user.id, ip);
+  if (!rateLimit.ok) {
+    return { error: rateLimit.error };
+  }
+
+  const parsed = parseRevisionFields(formData);
+  if ("error" in parsed) {
+    return { error: parsed.error };
+  }
+
+  const mode = formData.get("mode");
   let gameId: string;
 
   if (mode === "existing") {
@@ -114,14 +147,8 @@ export async function submitGameRevision(
   const revision = await prisma.gameRevision.create({
     data: {
       gameId,
-      regionOfCart,
-      regionFree,
-      cartridgeFormat,
-      languages: JSON.stringify(allLanguages),
-      languageLockedToRegion,
+      ...parsed.data,
       dataSource: "UNVERIFIED_SUBMISSION",
-      sourceCitation,
-      notes,
       submittedByUserId: user.id,
     },
   });
@@ -129,6 +156,70 @@ export async function submitGameRevision(
   revalidatePath("/");
   revalidatePath(`/games/${gameId}`);
   redirect(`/games/${gameId}#revision-${revision.id}`);
+}
+
+// Proposes a fix to an existing print rather than adding a new one. Creates
+// a GameRevision row like any submission, but tagged via correctsRevisionId
+// so it shows as a pending correction on the original print instead of a
+// second standalone print — see maybePromoteToVerified for how it resolves.
+export async function submitCorrection(
+  _prevState: SubmitState,
+  formData: FormData,
+): Promise<SubmitState> {
+  if (isHoneypotTripped(formData)) {
+    return { error: "Something went wrong. Please try again." };
+  }
+
+  const user = await getCurrentUser();
+  if (!user) {
+    return { error: "Sign in to suggest a correction." };
+  }
+
+  const targetRevisionId = String(formData.get("targetRevisionId") ?? "");
+  if (!targetRevisionId) {
+    return { error: "Missing revision." };
+  }
+
+  const target = await prisma.gameRevision.findUnique({
+    where: { id: targetRevisionId },
+    select: { id: true, gameId: true, isHidden: true, correctsRevisionId: true },
+  });
+  if (!target || target.isHidden || target.correctsRevisionId) {
+    return { error: "That print can't be corrected right now." };
+  }
+
+  const existingPending = await prisma.gameRevision.findFirst({
+    where: { correctsRevisionId: targetRevisionId, isHidden: false },
+    select: { id: true },
+  });
+  if (existingPending) {
+    return { error: "This print already has a pending correction — vote on it instead of submitting another." };
+  }
+
+  const ip = await getClientIp();
+  const rateLimit = await enforceRateLimit("SUBMIT_GAME", user.id, ip);
+  if (!rateLimit.ok) {
+    return { error: rateLimit.error };
+  }
+
+  const parsed = parseRevisionFields(formData);
+  if ("error" in parsed) {
+    return { error: parsed.error };
+  }
+
+  await prisma.gameRevision.create({
+    data: {
+      gameId: target.gameId,
+      ...parsed.data,
+      dataSource: "UNVERIFIED_SUBMISSION",
+      submittedByUserId: user.id,
+      correctsRevisionId: targetRevisionId,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath(`/games/${target.gameId}`);
+  redirect(`/games/${target.gameId}#revision-${targetRevisionId}`);
 }
 
 export type VoteState = { error: string | null };
@@ -263,6 +354,47 @@ async function maybePromoteToVerified(gameRevisionId: string) {
     where: { id: gameRevisionId },
     include: { votes: true },
   });
+
+  // Correction proposals resolve differently from ordinary submissions:
+  // enough confirms applies their fields onto the target print and hides
+  // the proposal; enough disputes just discards the proposal and leaves the
+  // target untouched (a rejected correction isn't a moderation event, so it
+  // doesn't go through the report/hide path).
+  if (revision.correctsRevisionId) {
+    if (revision.isHidden) return;
+
+    const confirms = revision.votes.filter((v) => v.vote === "CONFIRM").length;
+    const disputes = revision.votes.filter((v) => v.vote === "DISPUTE").length;
+
+    if (confirms >= CONFIRM_THRESHOLD) {
+      await prisma.$transaction([
+        prisma.gameRevision.update({
+          where: { id: revision.correctsRevisionId },
+          data: {
+            regionOfCart: revision.regionOfCart,
+            regionFree: revision.regionFree,
+            cartridgeFormat: revision.cartridgeFormat,
+            languages: revision.languages,
+            languageLockedToRegion: revision.languageLockedToRegion,
+            sourceCitation: revision.sourceCitation,
+            notes: revision.notes,
+            dataSource: "COMMUNITY_VERIFIED",
+          },
+        }),
+        prisma.gameRevision.update({
+          where: { id: revision.id },
+          data: { isHidden: true, dataSource: "COMMUNITY_VERIFIED" },
+        }),
+      ]);
+    } else if (disputes >= CORRECTION_DISPUTE_THRESHOLD) {
+      await prisma.gameRevision.update({
+        where: { id: revision.id },
+        data: { isHidden: true },
+      });
+    }
+    return;
+  }
+
   if (revision.dataSource === "COMMUNITY_VERIFIED") return;
 
   const confirms = revision.votes.filter((v) => v.vote === "CONFIRM").length;

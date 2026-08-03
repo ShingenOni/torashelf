@@ -47,6 +47,7 @@ export async function getBrowseGames(
 
   const revisionFilter = {
     isHidden: false,
+    correctsRevisionId: null,
     ...(filters.regions.length ? { regionFree: { in: filters.regions } } : {}),
     ...(filters.langs.length
       ? { AND: filters.langs.map((lang) => ({ languages: { contains: `"${lang}"` } })) }
@@ -70,7 +71,7 @@ export async function getBrowseGames(
       select: {
         id: true,
         revisions: {
-          where: { isHidden: false },
+          where: { isHidden: false, correctsRevisionId: null },
           select: { votes: { where: { vote: "DISPUTE" }, select: { id: true } } },
         },
       },
@@ -88,7 +89,7 @@ export async function getBrowseGames(
 
     const games = await prisma.game.findMany({
       where: { id: { in: pageIds } },
-      include: { revisions: { where: { isHidden: false }, orderBy: { createdAt: "asc" } } },
+      include: { revisions: { where: { isHidden: false, correctsRevisionId: null }, orderBy: { createdAt: "asc" } } },
     });
     const gamesById = new Map(games.map((g) => [g.id, g]));
     const ordered = pageIds.map((id) => gamesById.get(id)).filter((g) => g !== undefined);
@@ -106,7 +107,7 @@ export async function getBrowseGames(
     prisma.game.count({ where }),
     prisma.game.findMany({
       where,
-      include: { revisions: { where: { isHidden: false }, orderBy: { createdAt: "asc" } } },
+      include: { revisions: { where: { isHidden: false, correctsRevisionId: null }, orderBy: { createdAt: "asc" } } },
       orderBy,
       skip: (page - 1) * PAGE_SIZE,
       take: PAGE_SIZE,
@@ -133,13 +134,21 @@ export async function getGameWithRevisions(id: string) {
   return prisma.game.findUnique({
     where: { id },
     include: {
+      // correctsRevisionId: null excludes correction proposals from the
+      // main print list — they show nested under the print they'd correct
+      // instead (see the `corrections` relation below), never as their own
+      // standalone print.
       revisions: {
-        where: { isHidden: false },
+        where: { isHidden: false, correctsRevisionId: null },
         orderBy: { createdAt: "asc" },
         include: {
           votes: true,
           collectionEntries: true,
           submittedByUser: { select: { name: true } },
+          corrections: {
+            where: { isHidden: false },
+            include: { votes: true, submittedByUser: { select: { name: true } } },
+          },
         },
       },
     },
