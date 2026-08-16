@@ -113159,7 +113159,7 @@
       {
         "regionOfCart": "US",
         "regionFree": "REGION_FREE",
-        "cartridgeFormat": "FULL_CARTRIDGE",
+        "cartridgeFormat": "GAME_KEY_CARD",
         "languages": [
           "JA",
           "EN",
@@ -113181,7 +113181,7 @@
       {
         "regionOfCart": "JP",
         "regionFree": "REGION_FREE",
-        "cartridgeFormat": "FULL_CARTRIDGE",
+        "cartridgeFormat": "GAME_KEY_CARD",
         "languages": [
           "JA",
           "EN",
@@ -113203,7 +113203,7 @@
       {
         "regionOfCart": "EU",
         "regionFree": "REGION_FREE",
-        "cartridgeFormat": "FULL_CARTRIDGE",
+        "cartridgeFormat": "GAME_KEY_CARD",
         "languages": [
           "JA",
           "EN",
@@ -113225,7 +113225,7 @@
       {
         "regionOfCart": "ASIA",
         "regionFree": "REGION_FREE",
-        "cartridgeFormat": "FULL_CARTRIDGE",
+        "cartridgeFormat": "GAME_KEY_CARD",
         "languages": [
           "JA",
           "EN",
@@ -119423,6 +119423,156 @@
           "IT",
           "NL",
           "RU"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "20xx",
+    "publisher": "Batterystaple",
+    "releaseDate": "2018-07-10",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "PT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "JP",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "PT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "7 Billion Humans",
+    "publisher": "Tomorrow Corporation",
+    "releaseDate": "2018-10-25",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "JA",
+          "EN",
+          "ES",
+          "FR",
+          "DE",
+          "IT",
+          "NL",
+          "PT",
+          "RU",
+          "KO",
+          "ZH"
+        ],
+        "languageLockedToRegion": true,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      }
+    ]
+  },
+  {
+    "title": "80 Days",
+    "publisher": "inkle",
+    "releaseDate": "2019-10-01",
+    "revisions": [
+      {
+        "regionOfCart": "US",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "EN"
+        ],
+        "languageLockedToRegion": false,
+        "dataSource": "SCRAPED",
+        "sourceCitation": "https://github.com/ch0c01dxyz/nsw-titledb",
+        "notes": null
+      },
+      {
+        "regionOfCart": "EU",
+        "regionFree": "REGION_FREE",
+        "cartridgeFormat": "FULL_CARTRIDGE",
+        "languages": [
+          "EN"
         ],
         "languageLockedToRegion": false,
         "dataSource": "SCRAPED",

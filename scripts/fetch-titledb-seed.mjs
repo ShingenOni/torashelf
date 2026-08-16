@@ -40,6 +40,7 @@ const ROOT = path.join(__dirname, "..");
 const CACHE_DIR = path.join(ROOT, ".cache", "titledb");
 const OUT_FILE = path.join(ROOT, "prisma", "seed-data.json");
 const UNMATCHED_FILE = path.join(ROOT, "prisma", "unmatched-physical-releases.json");
+const WIKIPEDIA_GAPS_FILE = path.join(ROOT, "prisma", "wikipedia-coverage-gaps.json");
 
 const TITLEDB_BASE = "https://raw.githubusercontent.com/ch0c01dxyz/nsw-titledb/master";
 const REGION_FILES = {
@@ -265,6 +266,22 @@ async function fetchPhysicalReleaseTitles() {
   return Array.from(titles);
 }
 
+// Second allowlist source, produced by scripts/find-wikipedia-coverage-gaps.ts
+// — titles Wikipedia's "List of Nintendo Switch games" and/or
+// physicalreleases.com already confirm have a real physical release, that
+// weren't in our catalog when that audit ran. Missing the file (never run,
+// or deleted) just means this source contributes nothing — not a hard
+// dependency of this script.
+async function loadWikipediaConfirmedTitles() {
+  try {
+    const raw = await readFile(WIKIPEDIA_GAPS_FILE, "utf8");
+    const data = JSON.parse(raw);
+    return (data.confirmedPhysicalGaps ?? []).map((g) => g.title);
+  } catch {
+    return [];
+  }
+}
+
 async function fetchGameKeyCardTitles() {
   const html = await fetchText(DEKU_DEALS_GKC_URL);
   const regex = /<a class='main-link[^']*' href='\/items\/([^']+)'>\s*<h6[^>]*>([^<]+)<\/h6>/g;
@@ -277,11 +294,31 @@ async function fetchGameKeyCardTitles() {
 }
 
 async function buildFromTitledb() {
-  const [physicalTitles, gameKeyCardTitles, regionData] = await Promise.all([
+  const [physicalReleaseTitles, wikipediaTitles, gameKeyCardTitles, regionData] = await Promise.all([
     fetchPhysicalReleaseTitles(),
+    loadWikipediaConfirmedTitles(),
     fetchGameKeyCardTitles(),
     loadTitledbRegions(),
   ]);
+
+  // Merge both allowlist sources, deduped by normalized title, tracking
+  // provenance so a title that still doesn't match gets logged with which
+  // source(s) flagged it — physicalreleases.com and Wikipedia largely
+  // overlap (Wikipedia's own "confirmed" bucket was partly built by
+  // checking physicalreleases.com in the first place), so most entries
+  // carry both sources.
+  const allowlist = new Map(); // normalized title -> { rawTitle, sources: Set<string> }
+  for (const t of physicalReleaseTitles) {
+    const key = normalize(t);
+    if (!allowlist.has(key)) allowlist.set(key, { rawTitle: t, sources: new Set() });
+    allowlist.get(key).sources.add(PHYSICAL_RELEASES_URL);
+  }
+  for (const t of wikipediaTitles) {
+    const key = normalize(t);
+    if (!allowlist.has(key)) allowlist.set(key, { rawTitle: t, sources: new Set() });
+    allowlist.get(key).sources.add("wikipedia-coverage-gaps.json");
+  }
+  const physicalTitles = Array.from(allowlist.values());
 
   const indices = {};
   for (const region of Object.keys(REGION_FILES)) {
@@ -293,12 +330,14 @@ async function buildFromTitledb() {
   const pushedAnchorIds = new Set();
   const unmatchedTitles = [];
 
-  for (const rawTitle of physicalTitles) {
+  for (const { rawTitle, sources } of physicalTitles) {
     let normTitle = normalize(rawTitle);
-    // physicalreleases.com's raw list is deduped by exact string, but a
-    // handful of titles appear twice under different catalog numbers (e.g.
-    // a reprint) with slightly different raw text that still normalizes to
-    // the same key — skip once we've already resolved this one.
+    // The merged allowlist is already deduped by normalized title (unlike
+    // the original single-source loop, which only had to worry about
+    // physicalreleases.com's own occasional near-duplicate entries), but
+    // this guard is still needed for the withLeadingArticleVariant() case
+    // below, where two different raw strings can resolve to the same
+    // matched title.
     if (pushedKeys.has(normTitle)) continue;
 
     let anchor = indices.US.byName.get(normTitle) ?? indices.EU.byName.get(normTitle);
@@ -314,7 +353,7 @@ async function buildFromTitledb() {
       }
     }
     if (!anchor) {
-      unmatchedTitles.push(rawTitle);
+      unmatchedTitles.push({ title: rawTitle, sources: Array.from(sources) });
       continue;
     }
     // Some titles are catalogued twice under genuinely different names —
@@ -364,7 +403,9 @@ async function buildFromTitledb() {
     });
   }
 
-  console.error(`physicalreleases.com titles: ${physicalTitles.length}`);
+  console.error(`physicalreleases.com titles: ${physicalReleaseTitles.length}`);
+  console.error(`Wikipedia confirmed-physical titles: ${wikipediaTitles.length}`);
+  console.error(`merged allowlist (deduped): ${physicalTitles.length}`);
   console.error(`matched in titledb: ${games.length}`);
   console.error(`unmatched (not found in titledb US/EU catalog): ${unmatchedTitles.length}`);
   console.error(`flagged as Game-Key Card: ${games.filter((g) => g.revisions[0]?.cartridgeFormat === "GAME_KEY_CARD").length}`);
@@ -480,15 +521,16 @@ async function main() {
   // too recent for this titledb snapshot, or a naming convention this
   // script doesn't handle yet. Tracked so the gap isn't lost between
   // sessions; re-check periodically as titledb and this matching logic
-  // both improve.
+  // both improve. `sources` records which allowlist(s) flagged each title,
+  // now that there are two (physicalreleases.com and the Wikipedia audit).
   await writeFile(
     UNMATCHED_FILE,
     JSON.stringify(
       {
         generatedAt: new Date().toISOString(),
-        source: PHYSICAL_RELEASES_URL,
+        sources: [PHYSICAL_RELEASES_URL, "wikipedia-coverage-gaps.json"],
         count: unmatchedTitles.length,
-        titles: unmatchedTitles.sort((a, b) => a.localeCompare(b)),
+        titles: unmatchedTitles.sort((a, b) => a.title.localeCompare(b.title)),
       },
       null,
       2,
