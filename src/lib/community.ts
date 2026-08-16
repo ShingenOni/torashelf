@@ -35,6 +35,7 @@ type ParsedRevisionFields = {
   regionOfCart: string;
   regionFree: string;
   cartridgeFormat: string;
+  platform: string;
   languages: string;
   languageLockedToRegion: boolean;
   sourceCitation: string | null;
@@ -48,6 +49,7 @@ function parseRevisionFields(formData: FormData): { data: ParsedRevisionFields }
   const regionOfCart = formData.get("regionOfCart");
   const regionFree = formData.get("regionFree");
   const cartridgeFormat = String(formData.get("cartridgeFormat") ?? "FULL_CARTRIDGE");
+  const platform = String(formData.get("platform") ?? "SWITCH_1");
   const languageLockedToRegion = formData.get("languageLockedToRegion") === "on";
   const languages = formData.getAll("languages").map(String);
   const extraLanguages = String(formData.get("extraLanguages") ?? "")
@@ -86,6 +88,7 @@ function parseRevisionFields(formData: FormData): { data: ParsedRevisionFields }
       regionOfCart,
       regionFree,
       cartridgeFormat,
+      platform,
       languages: JSON.stringify(allLanguages),
       languageLockedToRegion,
       sourceCitation,
@@ -374,6 +377,7 @@ async function maybePromoteToVerified(gameRevisionId: string) {
             regionOfCart: revision.regionOfCart,
             regionFree: revision.regionFree,
             cartridgeFormat: revision.cartridgeFormat,
+            platform: revision.platform,
             languages: revision.languages,
             languageLockedToRegion: revision.languageLockedToRegion,
             sourceCitation: revision.sourceCitation,

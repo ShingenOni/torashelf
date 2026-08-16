@@ -53,6 +53,28 @@ export default function AboutPage() {
         </div>
 
         <div className="rounded-xl border p-4" style={cardStyle}>
+          <p className="text-sm font-medium">Switch vs. Switch 2 vs. Switch 2 Edition — what&apos;s the difference?</p>
+          <p className="mt-1 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+            This is a separate question from cartridge format below — a Switch 2 title can still ship as a full
+            cartridge, so one doesn&apos;t imply the other:
+          </p>
+          <ul className="mt-2 flex flex-col gap-1.5 text-[13px]" style={{ color: "var(--text-secondary)" }}>
+            <li>
+              <strong>Switch</strong> — runs on the original console. Also plays on Switch 2 automatically, since
+              Nintendo guarantees backward compatibility for these.
+            </li>
+            <li>
+              <strong>Switch 2</strong> — built for Switch 2 specifically, with no separate Switch 1 version at all.
+            </li>
+            <li>
+              <strong>Switch 2 Edition</strong> — an upgraded re-release of an existing Switch title, sold as its
+              own distinct product rather than a free update. Shown as a separate print of the same game so it can
+              be compared against the original release.
+            </li>
+          </ul>
+        </div>
+
+        <div className="rounded-xl border p-4" style={cardStyle}>
           <p className="text-sm font-medium">Full cartridge vs. Game-Key Card vs. digital-only — what&apos;s the difference?</p>
           <p className="mt-1 text-[13px]" style={{ color: "var(--text-secondary)" }}>
             This is about whether &ldquo;physical&rdquo; actually means the game is on the cart:

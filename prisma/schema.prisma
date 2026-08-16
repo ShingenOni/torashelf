@@ -48,6 +48,19 @@ model GameRevision {
   // point: this affects whether buying physical gets you what you'd expect.
   cartridgeFormat String @default("FULL_CARTRIDGE")
 
+  // "SWITCH_1" | "SWITCH_2" | "SWITCH_2_EDITION" — which console generation
+  // this print targets. Independent of cartridgeFormat: a Switch 2 title can
+  // still ship as a full cartridge, so cartridgeFormat alone can't stand in
+  // for platform. SWITCH_2_EDITION is a distinct upgrade SKU of a Switch 1
+  // title (e.g. Pokémon Legends: Z-A's Switch 2 Edition), not just a
+  // regional print — represented as its own revision on the same Game so it
+  // can be compared side-by-side with the original, the same way regional
+  // prints already are. Every pre-existing revision defaults to SWITCH_1,
+  // since the catalog was entirely Switch 1-sourced before this field
+  // existed; ordinary Switch 1 titles need no extra tag for Switch 2's
+  // backward compatibility, since Nintendo guarantees that automatically.
+  platform String @default("SWITCH_1")
+
   dataSource      String // "SCRAPED" | "COMMUNITY_VERIFIED" | "UNVERIFIED_SUBMISSION"
   sourceCitation  String?
   notes           String? // free-text nuance, e.g. "JA only on JP cart, EN print separate"

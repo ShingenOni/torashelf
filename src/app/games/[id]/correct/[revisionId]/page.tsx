@@ -73,6 +73,7 @@ export default async function CorrectPage({
             regionOfCart: revision.regionOfCart,
             regionFree: revision.regionFree,
             cartridgeFormat: revision.cartridgeFormat,
+            platform: revision.platform,
             languages: parseLanguages(revision.languages),
             languageLockedToRegion: revision.languageLockedToRegion,
             sourceCitation: revision.sourceCitation,

@@ -4,10 +4,12 @@ import { prisma } from "@/lib/db";
 import {
   CART_REGION_LABELS,
   CARTRIDGE_FORMAT_LABELS,
+  PLATFORM_LABELS,
   REGION_FREE_LABELS,
   parseLanguages,
   type CartRegion,
   type CartridgeFormat,
+  type Platform,
   type RegionFree,
 } from "@/lib/enums";
 
@@ -41,6 +43,7 @@ export async function GET(request: Request) {
     "Title",
     "Publisher",
     "Status",
+    "Platform",
     "Cart Region",
     "Region-Free Status",
     "Cartridge Format",
@@ -55,6 +58,7 @@ export async function GET(request: Request) {
         r.game.title,
         r.game.publisher,
         STATUS_LABELS[entry.status] ?? entry.status,
+        PLATFORM_LABELS[r.platform as Platform] ?? r.platform,
         CART_REGION_LABELS[r.regionOfCart as CartRegion] ?? r.regionOfCart,
         REGION_FREE_LABELS[r.regionFree as RegionFree] ?? r.regionFree,
         CARTRIDGE_FORMAT_LABELS[r.cartridgeFormat as CartridgeFormat] ?? r.cartridgeFormat,

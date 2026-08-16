@@ -3,6 +3,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { RegionBadge } from "@/components/RegionBadge";
 import { TrustBadge } from "@/components/TrustBadge";
 import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
+import { PlatformBadge } from "@/components/PlatformBadge";
 import { prisma } from "@/lib/db";
 import { parseLanguages } from "@/lib/enums";
 
@@ -74,6 +75,7 @@ export default async function RecentPage() {
               </div>
 
               <div className="mt-2 flex flex-wrap gap-1.5">
+                <PlatformBadge platform={revision.platform} />
                 <CartridgeFormatBadge cartridgeFormat={revision.cartridgeFormat} />
                 <RegionBadge
                   regionFree={revision.regionFree}

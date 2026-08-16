@@ -14,6 +14,11 @@ const CARTRIDGE_FORMAT_OPTIONS = [
   { value: "GAME_KEY_CARD", label: "Game-key card — cart is a license key, needs a full download" },
   { value: "DIGITAL_ONLY", label: "Digital only — no physical release" },
 ];
+const PLATFORM_OPTIONS = [
+  { value: "SWITCH_1", label: "Switch — original console" },
+  { value: "SWITCH_2", label: "Switch 2 — native, no separate Switch 1 version" },
+  { value: "SWITCH_2_EDITION", label: "Switch 2 Edition — upgraded re-release of a Switch title" },
+];
 const LANGUAGE_OPTIONS = ["EN", "JA", "FR", "DE", "ES", "IT", "KO", "ZH"];
 
 const initialState: SubmitState = { error: null };
@@ -89,6 +94,22 @@ export function SubmitForm({
           </label>
         </div>
       )}
+
+      <label className="flex flex-col gap-1 text-sm">
+        Platform
+        <select name="platform" required defaultValue="SWITCH_1" className={inputClass} style={inputStyle}>
+          {PLATFORM_OPTIONS.map((p) => (
+            <option key={p.value} value={p.value}>
+              {p.label}
+            </option>
+          ))}
+        </select>
+        <span className="text-[12px]" style={{ color: "var(--text-muted)" }}>
+          &ldquo;Switch 2 Edition&rdquo; is a separate upgrade release of an existing Switch title, not just a
+          Switch 2 cart of the same game — pick &ldquo;Switch 2&rdquo; if there&apos;s no distinct Switch 1 version
+          at all.
+        </span>
+      </label>
 
       <label className="flex flex-col gap-1 text-sm">
         Cartridge format

@@ -4,6 +4,7 @@ import { IconArrowLeft, IconEdit, IconExternalLink, IconPlus } from "@tabler/ico
 import { RegionBadge } from "@/components/RegionBadge";
 import { TrustBadge } from "@/components/TrustBadge";
 import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
+import { PlatformBadge } from "@/components/PlatformBadge";
 import { LanguageTags } from "@/components/LanguageTags";
 import { VotePanel } from "@/components/VotePanel";
 import { CollectionControl } from "@/components/CollectionControl";
@@ -13,10 +14,12 @@ import { getCurrentUserId } from "@/lib/auth";
 import {
   CART_REGION_LABELS,
   CARTRIDGE_FORMAT_LABELS,
+  PLATFORM_LABELS,
   REGION_FREE_LABELS,
   parseLanguages,
   type CartRegion,
   type CartridgeFormat,
+  type Platform,
   type RegionFree,
 } from "@/lib/enums";
 
@@ -24,6 +27,7 @@ type RevisionLike = {
   regionOfCart: string;
   regionFree: string;
   cartridgeFormat: string;
+  platform: string;
   languages: string;
   languageLockedToRegion: boolean;
   notes: string | null;
@@ -54,6 +58,13 @@ function describeCorrectionChanges(original: RevisionLike, correction: RevisionL
       label: "Cartridge format",
       from: CARTRIDGE_FORMAT_LABELS[original.cartridgeFormat as CartridgeFormat] ?? original.cartridgeFormat,
       to: CARTRIDGE_FORMAT_LABELS[correction.cartridgeFormat as CartridgeFormat] ?? correction.cartridgeFormat,
+    });
+  }
+  if (original.platform !== correction.platform) {
+    changes.push({
+      label: "Platform",
+      from: PLATFORM_LABELS[original.platform as Platform] ?? original.platform,
+      to: PLATFORM_LABELS[correction.platform as Platform] ?? correction.platform,
     });
   }
   const originalLangs = parseLanguages(original.languages).join(", ");
@@ -176,6 +187,7 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                 </div>
 
                 <div className="mt-2 flex flex-wrap gap-1.5">
+                  <PlatformBadge platform={revision.platform} />
                   <CartridgeFormatBadge cartridgeFormat={revision.cartridgeFormat} />
                   <RegionBadge
                     regionFree={revision.regionFree}

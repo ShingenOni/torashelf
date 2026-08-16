@@ -33,6 +33,14 @@
   --bg-trust-unverified: #fdf1dd;
   --text-trust-unverified: #97620c;
   --border-trust-unverified: #f0cf9a;
+
+  /* Platform badge (Switch 1 / Switch 2 / Switch 2 Edition) — a third,
+     purpose-built color family. Deliberately one flat color across all
+     three values rather than success/warning/neutral: unlike region-free
+     or cartridge format, platform has no "better/worse" axis, so it
+     shouldn't borrow a palette that implies one. */
+  --bg-platform: #eef0ff;
+  --text-platform: #4338ca;
 }
 
 @theme inline {
@@ -71,6 +79,9 @@
   --bg-trust-unverified: #3a2c0f;
   --text-trust-unverified: #f0b04a;
   --border-trust-unverified: #5c4620;
+
+  --bg-platform: #232055;
+  --text-platform: #a5b0fc;
 }
 
 body {

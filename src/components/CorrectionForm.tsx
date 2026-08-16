@@ -14,6 +14,11 @@ const CARTRIDGE_FORMAT_OPTIONS = [
   { value: "GAME_KEY_CARD", label: "Game-key card — cart is a license key, needs a full download" },
   { value: "DIGITAL_ONLY", label: "Digital only — no physical release" },
 ];
+const PLATFORM_OPTIONS = [
+  { value: "SWITCH_1", label: "Switch — original console" },
+  { value: "SWITCH_2", label: "Switch 2 — native, no separate Switch 1 version" },
+  { value: "SWITCH_2_EDITION", label: "Switch 2 Edition — upgraded re-release of a Switch title" },
+];
 const LANGUAGE_OPTIONS = ["EN", "JA", "FR", "DE", "ES", "IT", "KO", "ZH"];
 
 const initialState: SubmitState = { error: null };
@@ -29,6 +34,7 @@ export function CorrectionForm({
     regionOfCart: string;
     regionFree: string;
     cartridgeFormat: string;
+    platform: string;
     languages: string[];
     languageLockedToRegion: boolean;
     sourceCitation: string | null;
@@ -52,6 +58,23 @@ export function CorrectionForm({
         className="absolute h-0 w-0 overflow-hidden opacity-0"
         aria-hidden="true"
       />
+
+      <label className="flex flex-col gap-1 text-sm">
+        Platform
+        <select
+          name="platform"
+          required
+          defaultValue={defaults.platform}
+          className={inputClass}
+          style={inputStyle}
+        >
+          {PLATFORM_OPTIONS.map((p) => (
+            <option key={p.value} value={p.value}>
+              {p.label}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <label className="flex flex-col gap-1 text-sm">
         Cartridge format
