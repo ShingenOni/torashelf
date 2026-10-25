@@ -4,7 +4,9 @@ import { RegionBadge } from "@/components/RegionBadge";
 import { TrustBadge } from "@/components/TrustBadge";
 import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
 import { PlatformBadge } from "@/components/PlatformBadge";
+import { connection } from "next/server";
 import { prisma } from "@/lib/db";
+import { cachedCatalog } from "@/lib/games";
 import { parseLanguages } from "@/lib/enums";
 
 const FEED_LIMIT = 50;
@@ -26,13 +28,22 @@ function timeAgo(date: Date): string {
   return "just now";
 }
 
+const getRecentRevisions = cachedCatalog(
+  () =>
+    prisma.gameRevision.findMany({
+      where: { isHidden: false },
+      orderBy: { createdAt: "desc" },
+      take: FEED_LIMIT,
+      include: { game: { select: { id: true, title: true, publisher: true } } },
+    }),
+  "recent-revisions",
+);
+
 export default async function RecentPage() {
-  const revisions = await prisma.gameRevision.findMany({
-    where: { isHidden: false },
-    orderBy: { createdAt: "desc" },
-    take: FEED_LIMIT,
-    include: { game: { select: { id: true, title: true, publisher: true } } },
-  });
+  // connection() keeps this out of the build (no database needed to deploy);
+  // the query itself is served from cache.
+  await connection();
+  const revisions = await getRecentRevisions();
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 py-8">
@@ -70,7 +81,7 @@ export default async function RecentPage() {
                   </p>
                 </div>
                 <span className="shrink-0 text-[12px]" style={{ color: "var(--text-muted)" }}>
-                  {timeAgo(revision.createdAt)}
+                  {timeAgo(new Date(revision.createdAt))}
                 </span>
               </div>
 

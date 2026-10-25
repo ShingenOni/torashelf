@@ -17,10 +17,12 @@ export function CollectionControl({
   gameRevisionId,
   status,
   isSignedIn,
+  onChange,
 }: {
   gameRevisionId: string;
   status: Status;
   isSignedIn: boolean;
+  onChange?: () => void;
 }) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -32,6 +34,7 @@ export function CollectionControl({
     startTransition(async () => {
       const result = await setCollectionStatus(formData);
       setError(result.error);
+      if (!result.error) onChange?.();
     });
   }
 

@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { connection } from "next/server";
 import { getTopSubmitters, getTopVoters, type LeaderboardEntry } from "@/lib/leaderboard";
+import { cachedCatalog } from "@/lib/games";
+
+const getCachedTopSubmitters = cachedCatalog(getTopSubmitters, "top-submitters");
+const getCachedTopVoters = cachedCatalog(getTopVoters, "top-voters");
 
 function LeaderboardList({ entries, emptyLabel }: { entries: LeaderboardEntry[]; emptyLabel: string }) {
   if (entries.length === 0) {
@@ -35,7 +40,9 @@ function LeaderboardList({ entries, emptyLabel }: { entries: LeaderboardEntry[];
 }
 
 export default async function LeaderboardPage() {
-  const [topSubmitters, topVoters] = await Promise.all([getTopSubmitters(), getTopVoters()]);
+  // connection() keeps this out of the build; the queries are served from cache.
+  await connection();
+  const [topSubmitters, topVoters] = await Promise.all([getCachedTopSubmitters(), getCachedTopVoters()]);
 
   return (
     <main className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 px-4 py-8">

@@ -25,11 +25,9 @@ function parseListParam(value: string | null): string[] {
 
 export function BrowseToolbar({
   publishers,
-  isSignedIn,
   sort,
 }: {
   publishers: string[];
-  isSignedIn: boolean;
   sort: string;
 }) {
   const router = useRouter();
@@ -108,7 +106,7 @@ export function BrowseToolbar({
         </select>
 
         <Link
-          href={isSignedIn ? "/collection" : "/signin"}
+          href="/collection"
           className="inline-flex items-center gap-1.5 rounded-[var(--radius)] border px-3 py-2 text-sm"
           style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
         >
