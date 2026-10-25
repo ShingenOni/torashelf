@@ -3,9 +3,10 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
+import { CATALOG_TAG } from "@/lib/games";
 import { getCurrentUser } from "@/lib/auth";
 import { enforceRateLimit, getClientIp } from "@/lib/rateLimit";
 import { sanitizeText, tooManyLinks, validateUrl } from "@/lib/sanitize";
@@ -157,6 +158,7 @@ export async function submitGameRevision(
   });
 
   revalidatePath("/");
+  revalidateTag(CATALOG_TAG, "max");
   revalidatePath(`/games/${gameId}`);
   redirect(`/games/${gameId}#revision-${revision.id}`);
 }
@@ -221,6 +223,7 @@ export async function submitCorrection(
   });
 
   revalidatePath("/");
+  revalidateTag(CATALOG_TAG, "max");
   revalidatePath(`/games/${target.gameId}`);
   redirect(`/games/${target.gameId}#revision-${targetRevisionId}`);
 }
@@ -276,6 +279,7 @@ export async function castVote(formData: FormData): Promise<VoteState> {
   });
   revalidatePath(`/games/${revision.gameId}`);
   revalidatePath("/");
+  revalidateTag(CATALOG_TAG, "max");
 
   return { error: null };
 }
@@ -331,6 +335,7 @@ export async function reportRevision(
   });
   revalidatePath(`/games/${revision.gameId}`);
   revalidatePath("/");
+  revalidateTag(CATALOG_TAG, "max");
 
   return { error: null, success: true };
 }

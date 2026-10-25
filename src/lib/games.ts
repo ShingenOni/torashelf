@@ -1,4 +1,17 @@
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
+
+// Tag for cached public lists (browse, publishers, /recent, leaderboard,
+// sitemap). Community actions revalidate it so new data shows up promptly;
+// otherwise entries refresh every CATALOG_REVALIDATE_SECONDS.
+export const CATALOG_TAG = "catalog";
+export const CATALOG_REVALIDATE_SECONDS = 600;
+
+// Note: cached results come back JSON-parsed, so Date fields arrive as
+// strings on a cache hit — wrap with new Date() before using them.
+export function cachedCatalog<A extends unknown[], R>(fn: (...args: A) => Promise<R>, key: string) {
+  return unstable_cache(fn, [key], { tags: [CATALOG_TAG], revalidate: CATALOG_REVALIDATE_SECONDS });
+}
 
 export type BrowseFilters = {
   q?: string;
@@ -142,15 +155,17 @@ export async function getGameWithRevisions(id: string) {
         where: { isHidden: false, correctsRevisionId: null },
         orderBy: { createdAt: "asc" },
         include: {
-          votes: true,
-          collectionEntries: true,
+          votes: { select: { vote: true, evidenceUrl: true } },
           submittedByUser: { select: { name: true } },
           corrections: {
             where: { isHidden: false },
-            include: { votes: true, submittedByUser: { select: { name: true } } },
+            include: { votes: { select: { vote: true } }, submittedByUser: { select: { name: true } } },
           },
         },
       },
     },
   });
 }
+
+export const getCachedBrowseGames = cachedCatalog(getBrowseGames, "browse-games");
+export const getCachedPublishers = cachedCatalog(getPublishers, "publishers");

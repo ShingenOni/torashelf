@@ -12,6 +12,7 @@ type Props = {
   currentVote: "CONFIRM" | "DISPUTE" | null;
   disputeEvidence: string[];
   isSignedIn: boolean;
+  onChange?: () => void;
 };
 
 export function VotePanel({
@@ -21,6 +22,7 @@ export function VotePanel({
   currentVote,
   disputeEvidence,
   isSignedIn,
+  onChange,
 }: Props) {
   const [isPending, startTransition] = useTransition();
   const [showDisputeForm, setShowDisputeForm] = useState(false);
@@ -44,6 +46,7 @@ export function VotePanel({
       setError(null);
       setShowDisputeForm(false);
       setFileName(null);
+      onChange?.();
     });
   }
 

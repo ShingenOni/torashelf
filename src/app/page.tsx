@@ -1,8 +1,7 @@
 import { BrowseToolbar } from "@/components/BrowseToolbar";
 import { GameCard } from "@/components/GameCard";
 import { Pagination } from "@/components/Pagination";
-import { getBrowseGames, getPublishers, SORT_VALUES, type SortOption } from "@/lib/games";
-import { auth } from "@/auth";
+import { getCachedBrowseGames, getCachedPublishers, SORT_VALUES, type SortOption } from "@/lib/games";
 
 function parseListParam(value: string | string[] | undefined): string[] {
   const raw = Array.isArray(value) ? value[0] : value;
@@ -24,8 +23,10 @@ export default async function BrowsePage({
     ? (sortParam as SortOption)
     : "alphabetical";
 
-  const [{ games, total, pageCount }, publishers, session] = await Promise.all([
-    getBrowseGames(
+  // Still rendered per request (it reads searchParams), but the query results
+  // are cached per filter/page combination, so repeat visits skip the database.
+  const [{ games, total, pageCount }, publishers] = await Promise.all([
+    getCachedBrowseGames(
       {
         q,
         publisher,
@@ -35,8 +36,7 @@ export default async function BrowsePage({
       page,
       sort,
     ),
-    getPublishers(),
-    auth(),
+    getCachedPublishers(),
   ]);
 
   return (
@@ -48,7 +48,7 @@ export default async function BrowsePage({
         </p>
       </div>
 
-      <BrowseToolbar publishers={publishers} isSignedIn={!!session?.user} sort={sort} />
+      <BrowseToolbar publishers={publishers} sort={sort} />
 
       {games.length === 0 ? (
         <p className="py-12 text-center text-sm" style={{ color: "var(--text-muted)" }}>

@@ -6,11 +6,13 @@ import { TrustBadge } from "@/components/TrustBadge";
 import { CartridgeFormatBadge } from "@/components/CartridgeFormatBadge";
 import { PlatformBadge } from "@/components/PlatformBadge";
 import { LanguageTags } from "@/components/LanguageTags";
-import { VotePanel } from "@/components/VotePanel";
-import { CollectionControl } from "@/components/CollectionControl";
-import { ReportButton } from "@/components/ReportButton";
+import {
+  GameViewerProvider,
+  ViewerCollectionControl,
+  ViewerReportButton,
+  ViewerVotePanel,
+} from "@/components/GameViewer";
 import { getGameWithRevisions } from "@/lib/games";
-import { getCurrentUserId } from "@/lib/auth";
 import {
   CART_REGION_LABELS,
   CARTRIDGE_FORMAT_LABELS,
@@ -93,15 +95,27 @@ function describeCorrectionChanges(original: RevisionLike, correction: RevisionL
   return changes;
 }
 
+// Served as a cached copy shared by every visitor. Votes, submissions and
+// corrections already call revalidatePath for this page, so changes show up
+// right away; the daily revalidate is only a safety net. The empty
+// generateStaticParams means nothing is rendered at build time (no database
+// needed to deploy) — each page is rendered on its first visit, then cached.
+// The viewer's own vote/collection state loads in the browser (GameViewer).
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  return [];
+}
+
 export default async function GameDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [game, currentUserId] = await Promise.all([getGameWithRevisions(id), getCurrentUserId()]);
+  const game = await getGameWithRevisions(id);
   if (!game) notFound();
-  const isSignedIn = currentUserId !== null;
 
   const year = game.releaseDate ? new Date(game.releaseDate).getUTCFullYear() : null;
 
   return (
+    <GameViewerProvider gameId={game.id}>
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col gap-6 px-4 py-8">
       <Link
         href="/"
@@ -141,15 +155,9 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
               CART_REGION_LABELS[revision.regionOfCart as CartRegion] ?? revision.regionOfCart;
             const confirms = revision.votes.filter((v) => v.vote === "CONFIRM").length;
             const disputes = revision.votes.filter((v) => v.vote === "DISPUTE").length;
-            const currentVote = (currentUserId
-              ? revision.votes.find((v) => v.userId === currentUserId)?.vote
-              : null) as "CONFIRM" | "DISPUTE" | null | undefined;
             const disputeEvidence = revision.votes
               .filter((v) => v.vote === "DISPUTE" && v.evidenceUrl)
               .map((v) => v.evidenceUrl as string);
-            const collectionStatus = (currentUserId
-              ? revision.collectionEntries.find((c) => c.userId === currentUserId)?.status
-              : null) as "OWNED" | "WISHLIST" | "CONSIDERING_IMPORT" | null | undefined;
 
             const pendingCorrection = revision.corrections[0];
             const correctionChanges = pendingCorrection
@@ -161,9 +169,6 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
             const correctionDisputes = pendingCorrection
               ? pendingCorrection.votes.filter((v) => v.vote === "DISPUTE").length
               : 0;
-            const correctionCurrentVote = (pendingCorrection && currentUserId
-              ? pendingCorrection.votes.find((v) => v.userId === currentUserId)?.vote
-              : null) as "CONFIRM" | "DISPUTE" | null | undefined;
 
             return (
               <div
@@ -233,22 +238,16 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                   )}
                 </div>
 
-                <CollectionControl
-                  gameRevisionId={revision.id}
-                  status={collectionStatus ?? null}
-                  isSignedIn={isSignedIn}
-                />
+                <ViewerCollectionControl gameRevisionId={revision.id} />
 
-                <VotePanel
+                <ViewerVotePanel
                   gameRevisionId={revision.id}
                   confirms={confirms}
                   disputes={disputes}
-                  currentVote={currentVote ?? null}
                   disputeEvidence={disputeEvidence}
-                  isSignedIn={isSignedIn}
                 />
 
-                <ReportButton gameRevisionId={revision.id} isSignedIn={isSignedIn} />
+                <ViewerReportButton gameRevisionId={revision.id} />
 
                 {pendingCorrection && (
                   <div
@@ -267,13 +266,11 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
                         </li>
                       ))}
                     </ul>
-                    <VotePanel
+                    <ViewerVotePanel
                       gameRevisionId={pendingCorrection.id}
                       confirms={correctionConfirms}
                       disputes={correctionDisputes}
-                      currentVote={correctionCurrentVote ?? null}
                       disputeEvidence={[]}
-                      isSignedIn={isSignedIn}
                     />
                   </div>
                 )}
@@ -283,5 +280,6 @@ export default async function GameDetailPage({ params }: { params: Promise<{ id:
         </div>
       </div>
     </main>
+    </GameViewerProvider>
   );
 }
